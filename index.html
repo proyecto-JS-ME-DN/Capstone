@@ -1,168 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css" />
+    <style>
+      .carousel img {
+        display: none;
+      }
+      .carousel img.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="#home">Logo</a>
+      <a href="#products">Productos</a>
+      <a href="#services">Servicios</a>
+      <a href="#contact">Contacto</a>
+      <a href="#login" class="right">Iniciar Sesión</a>
+    </div>
 
-        <div class="menu container"><!--menu-->
+    <div class="carousel" id="carousel">
+      <img class="active" src="Img/Carrusel/BMW.jpg" alt="Imagen 1" />
+      <img class="active" src="Img/Carrusel/Nissan.jpg" alt="Imagen 2" />
+      <img class="active" src="Img/Carrusel/Toyota.jpg" alt="Imagen 3" />
+      <img class="active" src="Img/Carrusel/Kia.jpg" alt="Imagen 4" />
+    </div>
 
-            <img class="logo-1" src="imagenes/2.png" alt="">
-            <input type="checkbox" id="menu" />
-            <label for="menu">
-                <img src="imagenes/menu.png" class="menu" alt>
-            </label>
-            <nav class="navbar">
-                <div class="menu-1">
-                    <ul>
-                        <li><a href="inicio.html">Inicio</a></li>
-                        <li><a href="servicios.html">Servicos</a></li>
-                        <li><a href="productos.html">Productos</a></li>
-                    </ul>
-                </div>
+    <div class="card">
+      <div class="container">
+        <h4><b>Información 1</b></h4>
+        <p>Descripción...</p>
+      </div>
+    </div>
 
-                <img class="logo-2" src="imagenes/2.png" alt="">
+    <div class="card">
+      <div class="container">
+        <h4><b>Información 2</b></h4>
+        <p>Descripción...</p>
+      </div>
+    </div>
 
-                <div class="menu-2">
-                    <ul>
-                        <li><a href="#">horarios</a></li>
-                    </ul>
-                    <div class="socials">
-                        <a href="#">
-                            <div class="social">
-                                <img src="imagenes/s1.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="imagenes/s2.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="imagenes/s3.svg" alt="">
-                            </div>
-                        </a>
+    <div class="card">
+      <div class="container">
+        <h4><b>Información 3</b></h4>
+        <p>Descripción...</p>
+      </div>
+    </div>
 
-                    </div>
-
-                </div>
-            
-            </nav>
-        </div>
-        <div class="header-content container">
-            <div class="swiper mySwiper-1"><!--slider-->
-                <div class="swiper-wrapper"><!--contenido de las imagenes-->
-
-                    <div class="swiper-slide">
-                        <div class="slaider">
-                            <div class="slider-text">
-                                <h1>Honda</h1>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Inventore distinctio nam dolorem maiores ad. 
-                                    Atque sequi magnam recusandae corrupti reprehenderit laudantium,
-                                    omnis cumque tempore? Esse, recusandae repellendus? Laudantium,
-                                    quaerat rerum.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Comprar</a>
-                                    <a href="#" class="btn-1">Menu</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="imagenes/slider1.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slaider">
-                            <div class="slider-text">
-                                <h1>Toyota</h1>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Inventore distinctio nam dolorem maiores ad. 
-                                    Atque sequi magnam recusandae corrupti reprehenderit laudantium,
-                                    omnis cumque tempore? Esse, recusandae repellendus? Laudantium,
-                                    quaerat rerum.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Comprar</a>
-                                    <a href="#" class="btn-1">Menu</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="imagenes/slider2.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slaider">
-                            <div class="slider-text">
-                                <h1>Peugeot</h1>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Inventore distinctio nam dolorem maiores ad. 
-                                    Atque sequi magnam recusandae corrupti reprehenderit laudantium,
-                                    omnis cumque tempore? Esse, recusandae repellendus? Laudantium,
-                                    quaerat rerum.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Comprar</a>
-                                    <a href="#" class="btn-1">Menu</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="imagenes/slider3.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                </div><!--slider-->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-
-            </div><!--buttons-->
-
-        </div><!--header content-->
-
-    </header>
-
-    <main class="products">
-        <div class="tabs container">
-
-            <input type="radio" name="tabs" id="tab1" checked="checked" class="tabInput" value="1">
-            <label for="tab1">Honda</label>
-
-            <div class="tab">
-                <div class="swiper mySwiper-2" id="swiper1">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-
-                            <div class="product">
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
-
-</body>
+    <script src="JS/script.js">
+    </script>
+  </body>
 </html>
