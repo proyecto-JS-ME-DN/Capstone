@@ -1,5 +1,7 @@
 body {
   font-family: Arial, sans-serif;
+  background: -webkit-linear-gradient(bottom, #585858, #242424);
+  background-repeat: no-repeat;
 }
 .navbar {
   overflow: hidden;
@@ -81,4 +83,3 @@ body {
     animation: form-animation 2s ease-out forwards;
   }
 
-  
