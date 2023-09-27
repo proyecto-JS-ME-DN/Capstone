@@ -63,3 +63,20 @@ body {
     background-position: 0% 50%;
   }
 }
+
+@keyframes form-animation {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .card {
+    background-color: #797878;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 50px;
+    width: 300px;
+  }
+  
+  .animated-form {
+    animation: form-animation 2s ease-out forwards;
+  }
