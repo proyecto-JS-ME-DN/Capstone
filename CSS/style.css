@@ -45,7 +45,7 @@ body {
   width: 100%;
 }
 .carousel img {
-  min-width: 5rem;
+  min-width: auto;
   height: 35rem; /* Mantiene la proporción de la imagen */
   transition: 3s;
 }
