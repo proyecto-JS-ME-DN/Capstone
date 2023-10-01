@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = "postgres://zplgxrfq:APvDvrAQdcb52ADYBWT_P2OUH3UaP-Rc@motty.db.elephantsql.com/zplgxrfq" //Can be found in the Details page
+var conString = "postgres://zplgxrfq:APvDvrAQdcb52ADYBWT_P2OUH3UaP-Rc@motty.db.elephantsql.com/zplgxrfq"
 var client = new pg.Client(conString);
 
 client.connect(function(err) {
@@ -14,4 +14,8 @@ client.connect(function(err) {
     client.end();
   });
 });
+
+
+
+
 
