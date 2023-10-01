@@ -39,7 +39,8 @@
     "mime": "^1.6.0",
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
-    "mongose": "^0.0.2-security",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.5.3",
     "ms": "^2.0.0",
     "negotiator": "^0.6.3",
     "object-inspect": "^1.12.3",
@@ -63,7 +64,6 @@
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
