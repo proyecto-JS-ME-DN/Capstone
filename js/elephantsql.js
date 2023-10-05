@@ -6,7 +6,7 @@ client.connect(function(err) {
   if(err) {
     return console.error('No se puede conectar con Postgre', err);
   }
-  client.query('select * from productos', function(err, result) {
+  client.query('select * from categoria_prod', function(err, result) {
     if(err) {
       return console.error('error al ejecutar la query', err);
     }
@@ -14,8 +14,4 @@ client.connect(function(err) {
     client.end();
   });
 });
-
-
-
-
 
