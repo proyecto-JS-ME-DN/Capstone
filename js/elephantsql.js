@@ -17,14 +17,14 @@
 
 const express = require('express');
 const app = express();
-// const cors = require('cors');
+const cors = require('cors');
 const port = 5500;
 
 
 // Incluye la API que creaste
 const apiRouter = require('./api');
 
-// app.use(cors());
+app.use(cors());
 
 // Usa la API en una ruta específica, por ejemplo, '/api'
 app.use('/api', apiRouter);
