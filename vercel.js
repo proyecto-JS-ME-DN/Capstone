@@ -1,7 +1,7 @@
 {
     "version": 2,
     "builds": [
-        { "src": "*.js","use": "@vercel/node" },
+        { "src": "elephantsql.js","use": "@vercel/node" },
       ],
       "routes": [
         { "src": "/api/.*", "dest": "elephantsql.js" }, // Ruta para la API
