@@ -15,6 +15,8 @@
 //   });
 // });
 
+console.log('Archivo elephantsql.js se está ejecutando en Vercel');
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
