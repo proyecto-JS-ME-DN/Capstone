@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <%- include('partials/estilos') %>
+
+    <style>
+        #login-btn {
+          background-color: black; /* Color de relleno negro */
+          color: white; /* Color del texto en blanco */
+          border: none; /* Sin borde */
+          padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+          margin-right: 10px; /* Espacio entre botones */
+        }
+    
+        #registro-btn {
+          background-color: transparent; /* Sin relleno */
+          border: 1px solid black; /* Borde negro */
+          color: black; /* Color del texto en negro */
+          padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+        }
+      </style>
+</head>
+<body class="sub_page">
+  <%- include('partials/navigation_bar') %>
+  <div id="card">
+      <div id="card-content">
+        <div id="card-title">
+          <h2>LOGIN</h2>
+          <div class="underline-title"></div>
+        </div>
+        <form method="POST" class="form" action="/auth">
+          <label for="user" style="padding-top: 13px">Nombre de usuario:</label>
+            <input type="text" name="user" id="user" placeholder="User" required>
+          <div class="form-border"></div>
+          <label for="pass" style="padding-top: 22px">Contraseña:</label>
+            <input type="password" name="pass" id="pass" placeholder="Password" required>
+          <div class="form-border"></div>
+          <input type="submit" class="btn-login" value="Login">
+          <a href="registro" class="btn-register">Registro</a>
+          <a href="#">
+            <legend id="forgot-pass">¿Olvidaste tu contraseña?</legend>
+          </a>
+        </form>
+      </div>
+    </div>
+    <%- include('partials/sweetalert') %> 
+</body>
+
+<%- include('partials/scripts') %>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <%- include('partials/estilos') %>
+</head>
+<body class="sub_page">
+    <%- include('partials/navigation_bar') %>
+    <!-- contact section -->
+    <section class="contact_section layout_padding-top">
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 offset-md-1">
+            <div class="heading_container">
+                <h2>
+                Contactanos
+                </h2>
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-5 offset-md-1">
+            <div class="form_container">
+                <form action="">
+                <div>
+                    <input type="text" placeholder="Nombre" />
+                </div>
+                <div>
+                    <input type="text" placeholder="Teléfono" />
+                </div>
+                <div>
+                    <input type="email" placeholder="Email" />
+                </div>
+                <div>
+                    <input type="text" class="message-box" placeholder="Mensaje" />
+                </div>
+                <div class="btn_box">
+                    <button>
+                    Enviar
+                    </button>
+                </div>
+                </form>
+            </div>
+            </div>
+            <div class="col-lg-7 col-md-6 px-0">
+            <div class="map_container">
+                <div class="map">
+                <div id="googleMap"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- end contact section -->
+
+</body>
+
+<%- include('partials/sub_footer') %>
+<%- include('partials/footer') %>
+
+<%- include('partials/scripts') %>
+
+</html>
