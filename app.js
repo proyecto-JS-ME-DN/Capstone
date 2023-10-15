@@ -58,7 +58,7 @@ app.get("/register", (req, res) => {
   res.render("register");
 });
 
-// Insert en PostgreSQL
+// Registrarse en PostgreSQL
 
 app.post("/register", async (req, res) => {
   const { user, name, pass } = req.body;
@@ -83,6 +83,7 @@ app.post("/register", async (req, res) => {
   );
 });
 
+// Formulario Contacto
 app.post("/contacto", async (req, res) => {
   const { nombre, telefono, correo, mensaje } = req.body;
   pool.query(
@@ -95,6 +96,30 @@ app.post("/contacto", async (req, res) => {
           alert: true,
           alertTitle: "Mensaje Enviado",
           alertMessage: "Mensaje Enviado",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          ruta: "",
+        });
+      }
+    }
+  );
+});
+
+// Suscripcion Index
+
+app.post("/index", async (req, res) => {
+  const { correo } = req.body;
+  pool.query(
+    "INSERT INTO public.suscripcion( correo ) VALUES ($1)", [correo], async (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        //Alerta despues de guardar
+        res.render("index", {
+          alert: true,
+          alertTitle: "Suscrito",
+          alertMessage: "Suscrito",
           alertIcon: "success",
           showConfirmButton: false,
           timer: 1500,
