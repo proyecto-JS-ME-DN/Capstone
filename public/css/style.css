@@ -2,7 +2,7 @@
 body {
   font-family: Arial, sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  background: linear-gradient(to bottom, #868686, #d8d8d8);
   overflow-x: hidden;
  
 }
@@ -152,7 +152,7 @@ a:focus {
 }
 
 .header_section .header_bottom {
-  background-color: #ffffff;
+  background: linear-gradient(to bottom, #585858, #303030);
   padding: 15px 0;
 }
 
@@ -164,7 +164,7 @@ a:focus {
 .navbar-brand span {
   font-weight: bold;
   font-size: 24px;
-  color: #000000;
+  color: cyan;
 }
 
 .custom_nav-container {
@@ -177,7 +177,7 @@ a:focus {
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
-  color: #000000;
+  color: cyan;
   text-align: center;
   text-transform: uppercase;
   border-radius: 5px;
@@ -186,7 +186,7 @@ a:focus {
 }
 
 .custom_nav-container .navbar-nav .nav-item:hover .nav-link, .custom_nav-container .navbar-nav .nav-item.active .nav-link {
-  color: #0a97b0;
+  color: cyan;
 }
 
 .custom_nav-container .nav_search-btn {
@@ -194,7 +194,7 @@ a:focus {
   height: 35px;
   padding: 0;
   border: none;
-  color: #000000;
+  color: cyan;
 }
 
 .custom_nav-container .nav_search-btn:hover {
@@ -324,10 +324,9 @@ a:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(37, 37, 37, 0.5)), to(rgba(37, 37, 37, 0.3)));
-  background: linear-gradient(to right, rgba(37, 37, 37, 0.5), rgba(37, 37, 37, 0.3));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(37, 37, 37, 0.9)), to(rgba(37, 37, 37, 0.7)));
+  background: linear-gradient(to right, rgba(37, 37, 37, 0.9), rgba(37, 37, 37, 0.7));
 }
-
 
 .slider_section .row {
   -webkit-box-align: center;
@@ -373,8 +372,8 @@ a:focus {
 .slider_section .detail-box .btn-box .btn1 {
   display: inline-block;
   padding: 10px 15px;
-  background-color: #0a97b0;
-  color: #ffffff;
+  background-color: #00BFFF;
+  color: black;
   border-radius: 0;
   -webkit-transition: all .3s;
   transition: all .3s;
@@ -955,7 +954,7 @@ a:focus {
 /* footer section*/
 .footer_section {
   position: relative;
-  background-color: #ffffff;
+  background: linear-gradient(to bottom, #868686, #d8d8d8);
   text-align: center;
 }
 
