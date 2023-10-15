@@ -7,20 +7,12 @@
     <%- include('partials/estilos') %>
   </head>
   <body>
-    <div>
-    <%- include('partials/navigation_bar') %>
-    </div>
+    <div><%- include('partials/navigation_bar') %></div>
     <div class="login-form">
       <h2>Login</h2>
       <form action="/auth" method="POST">
         <input type="text" name="user" id="user" placeholder="User" required />
-        <input
-          type="password"
-          name="pass"
-          id="pass"
-          placeholder="Password"
-          required
-        />
+        <input type="password" name="pass" id="pass" placeholder="Password" required/>
         <input type="submit" class="btn-login" value="Iniciar Sesion" />
       </form>
       <a href="register" class="btn-register">Registro</a>
