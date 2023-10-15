@@ -42,6 +42,31 @@
             </div>
           </div>
         </div>
+        
+        <script>
+        function initMap() {
+          var location = {lat: -33.45372798089153, lng: -70.6464873216715}; // Coordenadas
+          var map = new google.maps.Map(document.getElementById('googleMap'), {
+            zoom: 15,
+            center: location
+          });
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map
+          });
+        }
+        
+        // Carga la API de Google Maps de forma asíncrona
+        function loadScript() {
+          var script = document.createElement('script');
+          script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCqj1rBqsaLuZwEgTvL6-VYK2W06eZiNgI&callback=initMap";
+          script.async = true;
+          document.body.appendChild(script);
+        }
+        
+        window.onload = loadScript;
+        </script>
+        
       </div>
     </div>
   </section>
