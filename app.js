@@ -158,6 +158,6 @@ app.get("/", (req,res) => {
 })
 
 // Server local
-app.listen(4000, (req, res) => {
-    console.log('servidor funcionando en http://localhost:4000')
+app.listen(3000, (req, res) => {
+    console.log('servidor funcionando en http://localhost:3000')
 });
