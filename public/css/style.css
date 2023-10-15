@@ -1061,3 +1061,11 @@ a:focus {
   margin-top: 20px;
   color: #fff;
 }
+
+.texto-carrusel-big {
+  font-size: 30px;
+}
+
+.texto-carrusel-small {
+  font-size: 15px;
+}
