@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +10,12 @@
     <%- include('partials/navigation_bar') %>
     <div class="register-form">
         <h1>Formulario Registro</h1>
-        <form action="registro" method="post">
+        <form action="register" method="post">
             <label for="user">Nombre usuario</label>
             <input type="text" name="user" required>
 
             <label for="name">Nombre completo</label>
             <input type="text" name="name" required>
-
-            <label for="rol">Rol</label>
-            <select name="rol" id="rol" class="select-css">
-                <option value="admin" selected>Admin</option>
-                <option value="data entry">Data Entry</option>
-
-            </select>
 
             <label for="pass">Contraseña</label>
             <input type="password" name="pass" required>

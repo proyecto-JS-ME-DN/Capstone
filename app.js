@@ -62,9 +62,9 @@ app.get('/register', (req,res) => {
 // Insert en PostgreSQL
 
 app.post('/register', async (req, res) => {
-    const { user, name, rol, pass } = req.body;
+    const { user, name, pass } = req.body;
     let passwordHaash = await bcryptjs.hash(pass,8);
-    pool.query('INSERT INTO public.login ("user", name, rol, password) VALUES ($1, $2, $3, $4)', [user, name, rol, passwordHaash], async(error, results) => {
+    pool.query('INSERT INTO public.login ("user", name, password) VALUES ($1, $2, $3)', [user, name, passwordHaash], async(error, results) => {
         if(error){
             console.log(error);
         }else{
