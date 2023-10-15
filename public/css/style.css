@@ -186,7 +186,7 @@ a:focus {
 }
 
 .custom_nav-container .navbar-nav .nav-item:hover .nav-link, .custom_nav-container .navbar-nav .nav-item.active .nav-link {
-  color: #ffffff;
+  color: red;
 }
 
 .custom_nav-container .nav_search-btn {
@@ -537,194 +537,6 @@ a:focus {
   background-color: #065968;
 }
 
-.track_section {
-  position: relative;
-  color: #ffffff;
-}
-
-.track_section .track_bg_box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.track_section .track_bg_box img {
-  width: auto;
-  height: auto;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.track_section .track_bg_box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(37, 37, 37, 0.95)), to(rgba(37, 37, 37, 0.55)));
-  background: linear-gradient(to right, rgba(37, 37, 37, 0.95), rgba(37, 37, 37, 0.55));
-}
-
-.track_section p {
-  font-size: 14px;
-  margin-top: 15px;
-  margin-bottom: 25px;
-}
-
-.track_section form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-}
-
-.track_section form input {
-  background-color: #ffffff;
-  border: none;
-  -webkit-box-flex: 2.5;
-      -ms-flex: 2.5;
-          flex: 2.5;
-  outline: none;
-  color: #000000;
-  min-height: 42.4px;
-  padding-left: 15px;
-}
-
-.track_section form input ::-webkit-input-placeholder {
-  color: #ffffff;
-  opacity: 0.2;
-}
-
-.track_section form input :-ms-input-placeholder {
-  color: #ffffff;
-  opacity: 0.2;
-}
-
-.track_section form input ::-ms-input-placeholder {
-  color: #ffffff;
-  opacity: 0.2;
-}
-
-.track_section form input ::placeholder {
-  color: #ffffff;
-  opacity: 0.2;
-}
-
-.track_section form button {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: inline-block;
-  padding: 9px 30px;
-  background-color: red;
-  color: #ffffff;
-  border-radius: 0;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  border: none;
-  font-size: 15px;
-  text-transform: uppercase;
-}
-
-.track_section form button:hover {
-  background-color: #065968;
-}
-
-.client_section .client_container {
-  width: 75%;
-  margin-top: 45px;
-}
-
-.client_section .box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin-right: 5px;
-}
-
-.client_section .box .detail-box {
-  border: 1px solid #dddddd;
-  padding: 25px;
-  margin-bottom: 25px;
-}
-
-.client_section .box .client_id {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.client_section .box .client_id .img-box {
-  position: relative;
-  width: 75px;
-  height: 75px;
-}
-
-.client_section .box .client_id .img-box img {
-  width: 100%;
-}
-
-.client_section .box .client_id .name {
-  margin-left: 15px;
-}
-
-.client_section .box .client_id .name h6 {
-  color: #23242a;
-  font-size: 18px;
-  margin-bottom: 0;
-}
-
-.client_section .box .client_id .name p {
-  margin-bottom: 0;
-}
-
-.client_section .carousel-wrap {
-  margin: 0 auto;
-  position: relative;
-}
-
-.client_section .owl-carousel .owl-nav .owl-prev,
-.client_section .owl-carousel .owl-nav .owl-next {
-  width: 50px;
-  height: 50px;
-  background-size: 18px;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
-  right: -15%;
-  outline: none;
-  background-color: red;
-}
-
-.client_section .owl-carousel .owl-nav .owl-prev:hover,
-.client_section .owl-carousel .owl-nav .owl-next:hover {
-  background-color: #161825;
-}
-
-.client_section .owl-carousel .owl-nav .owl-prev {
-  top: 25%;
-  background-image: url(../public/images/prev.png);
-}
-
-.client_section .owl-carousel .owl-nav .owl-next {
-  top: calc(25% + 65px);
-  background-image: url(../public/images/next.png);
-}
-
 .contact_section {
   position: relative;
   padding-bottom: 90px;
@@ -967,9 +779,6 @@ a:focus {
 .footer_section p a {
   color: inherit;
 }
-
-
-
 
 /* Login */
 .login-form {
