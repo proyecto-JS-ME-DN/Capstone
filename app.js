@@ -52,8 +52,8 @@ app.get('/login', (req,res) => {
     res.render('login')
 });
 
-app.get('/registro', (req,res) => {
-    res.render('registro')
+app.get('/register', (req,res) => {
+    res.render('register')
 });
 
 
@@ -61,7 +61,7 @@ app.get('/registro', (req,res) => {
 
 // Insert en PostgreSQL
 
-app.post('/registro', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { user, name, rol, pass } = req.body;
     let passwordHaash = await bcryptjs.hash(pass,8);
     pool.query('INSERT INTO public.login ("user", name, rol, password) VALUES ($1, $2, $3, $4)', [user, name, rol, passwordHaash], async(error, results) => {
@@ -69,7 +69,7 @@ app.post('/registro', async (req, res) => {
             console.log(error);
         }else{
             //Alerta despues de guardar
-            res.render('registro',{
+            res.render('register',{
                 alert:true,
                 alertTitle:"Registro",
                 alertMessage:"Registro Exitoso",
@@ -158,6 +158,6 @@ app.get("/", (req,res) => {
 })
 
 // Server local
-app.listen(3000, (req, res) => {
-    console.log('servidor funcionando en http://localhost:3000')
+app.listen(4000, (req, res) => {
+    console.log('servidor funcionando en http://localhost:4000')
 });
