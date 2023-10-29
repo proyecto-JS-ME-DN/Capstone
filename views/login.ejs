@@ -5,20 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <%- include('partials/estilos') %>
+    
   </head>
   <body>
     <div><%- include('partials/navigation_bar') %></div>
-    <div class="login-form">
-      <h2>Login</h2>
-      <form action="/auth" method="POST">
-        <input type="text" name="user" id="user" placeholder="User" required />
-        <input type="password" name="pass" id="pass" placeholder="Password" required/>
-        <input type="submit" class="btn-login" value="Iniciar Sesion" />
-      </form>
-      <a href="register" class="btn-register">Registro</a>
+
+  <div class="page">
+    <div class="login-container">
+      <div class="left">
+        <div class="login">Login</div>
+        <div class="eula">No tienes una cuenta?   
+          <a class="link-reg" href="/register">   Registrate Aquí</a>  
+        </div>
+        
+      </div>
+      <div class="right">
+        <svg viewBox="0 0 320 300">
+          <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+        </svg>
+        <div class="form" autocomplete="off">
+          <form action="/auth" method="POST">
+            <label class="user-cred" for="user">Usuario</label>
+            <input class="input-login" type="text" name="user" id="user" autocomplete="off" required>
+            <label class="user-cred" for="pass">Contraseña</label>
+            <input  class="input-login" type="password" name="pass" id="pass" autocomplete="off" required>
+            <input type="submit" id="submit-login" value="Iniciar Sesion">
+          </form>  
+        </div>
+      </div>
     </div>
+  </div>
+
     <%- include('partials/sweetalert') %>
   </body>
 
   <%- include('partials/scripts') %>
+  <%- include('partials/login_front') %>
 </html>
