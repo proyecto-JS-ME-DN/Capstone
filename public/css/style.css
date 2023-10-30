@@ -885,3 +885,16 @@ a:focus {
 .texto-carrusel-small {
   font-size: 15px;
 }
+
+/*Servicio*/
+
+.servicio {
+  text-align: center;
+  margin: auto;
+  width: 600px;
+  margin-top: 2%;
+}
+
+.margen-arriba{
+  margin-top: 3%;
+}
