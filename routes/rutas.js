@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const session = require("express-session");
+const pool = require("../database/db");
 router.use(
   session({
     secret: "secret",
@@ -9,6 +10,15 @@ router.use(
     saveUninitialized: true,
   })
 );
+
+async function getAgendasExtData() {
+  try {
+      const result = await pool.query('SELECT * FROM public.agenda_externo');
+      return result.rows; // Añade esta línea
+  } catch (err) {
+      console.error(err);
+  }
+}
 
 
 //Establecer Rutas
@@ -50,20 +60,36 @@ router.use(
       res.render("index", {
         dashboard: false,
         name: "Debe iniciar sesión",
+        alert: true,
+        alertTitle: "Debe iniciar sesión como administrador",
+        alertMessage: "Debe iniciar sesión como administrador",
+        alertIcon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        ruta: "index",
       });
     }
   });
 
-  router.get("/lista_agendas", (req, res) => {
+  router.get("/lista_agendas", async (req, res) => {
+    const dataext = await getAgendasExtData();
     if (req.session.loggedin) {
-      res.render("lista_agendas", {
+      res.render("lista_agendas" , {
         lista_agendas: true,
         name: req.session.name,
+        agendaext: dataext
       });
     } else {
       res.render("index", {
         lista_agendas: false,
         name: "Debe iniciar sesión",
+        alert: true,
+        alertTitle: "Debe iniciar sesión como administrador",
+        alertMessage: "Debe iniciar sesión como administrador",
+        alertIcon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        ruta: "index",
       });
     }
   });
@@ -78,6 +104,13 @@ router.use(
       res.render("index", {
         reg_admin: false,
         name: "Debe iniciar sesión",
+        alert: true,
+        alertTitle: "Debe iniciar sesión como administrador",
+        alertMessage: "Debe iniciar sesión como administrador",
+        alertIcon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        ruta: "index",
       });
     }
   });
