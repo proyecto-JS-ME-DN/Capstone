@@ -9,48 +9,60 @@
 <body class="sub_page">
     <%- include('partials/navigation_bar') %>
 
-    <div class="servicio">
-        <h1>Formulario Agenda</h1>
-        <form action="servicio" method="post" class="margen-arriba">
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Agenda De Servicios</h2>
+                    <form method="POST" action="servicio">
 
-            <label for="nombre">Nombre completo</label>
-            <input class="form-control" type="text" name="nombre" required>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" name="nombre" placeholder="Nombre Completo" required>
+                        </div>
 
-            <label for="correo">Correo electronico</label>
-            <input class="form-control" type="text" name="correo" required>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" name="correo" required placeholder="Correo Electronico" required>
+                        </div>
 
-            <label for="patente">Patente</label>
-            <input class="form-control" type="text" name="patente" required>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" name="patente" required placeholder="Patente" required>
+                        </div>
+                        
+                        <div >
+                            <select class="input--style-2" name="marca" id="marca">
+                                <option value="Peugeot" selected>Peugeot</option>
+                                <option value="Fiat">Fiat</option>
+                                <option value="Toyota">Toyota</option>
+                            </select>
+                        </div>
+                        
+                        <div id="desplegar">
+                            <select class="input--style-2" name="tipo" id="tipo">
+                                <option value="Consulta" selected>Consulta</option>
+                                <option value="Servicio">Servicio</option>
+                            </select>
+                        </div>
+                    
+                        <input id="desplegar" class="input--style-2" type="date" name="fecha" id="fecha" required>
 
-            <label for="marca">Marca</label>
-            <select class="form-control" name="marca" id="marca" >
-                <option value="Peugeot" selected>Peugeot</option>
-                <option value="Fiat">Fiat</option>
-                <option value="Toyota">Toyota</option>
-            </select>
+                        <input id="desplegar" class="input--style-2" type="time" name="hora" id="hora" required>
 
-            <label for="tipo">Tipo de servicio</label>
-            <select class="form-control" name="tipo" id="tipo">
-                <option value="Consulta" selected>Consulta</option>
-                <option value="Servicio">Servicio</option>
-            </select>
 
-            <label for="fecha">Fecha de atencion</label>
-            <input class="form-control" type="date" name="fecha" id="fecha">
+                        <div style="display: inline;" >
+                            <!--<a href="/" class="btn-cancel">Cancel</a>-->
+                            <input  type="submit" class="btn btn-success margen-arriba" value="Guardar" >
+                        </div>
 
-            <label for="hora">Hora de atencion</label>
-            <input class="form-control" type="time" name="hora" id="hora">
-            
-            <div style="display: inline;" >
-                <!--<a href="/" class="btn-cancel">Cancel</a>-->
-                <input  type="submit" class="btn btn-success margen-arriba" value="Guardar" >
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 
 
     <%- include('partials/sweetalert') %>
-    <%- include('partials/servicesection') %>
+  
 </body>
 <%- include('partials/sub_footer') %>
 <%- include('partials/footer') %>

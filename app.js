@@ -39,7 +39,7 @@ const registerRouter = require('./routes/register');
 const contactoRouter = require('./routes/contacto');
 const suscripcionRouter = require('./routes/suscripcion');
 const autenticacionRouter = require('./routes/autenticacion');
-const formservicioRouter = require('./routes/formservicio');
+const servicioRouter = require('./routes/servicio');
 
 // Usa el router con app.use(), indicando la ruta base
 
@@ -48,7 +48,7 @@ app.use('/register', registerRouter);
 app.use('/contacto', contactoRouter);
 app.use('/suscripcion', suscripcionRouter);
 app.use('/autenticacion', autenticacionRouter);
-app.use('/formservicio', formservicioRouter);
+app.use('/servicio', servicioRouter);
 
 // Autenticacion paginas
 
