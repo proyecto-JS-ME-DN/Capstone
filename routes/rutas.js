@@ -86,7 +86,16 @@ router.use(
 
   router.get("/logout", (req, res) => {
     req.session.destroy(() => {
-      res.redirect("/");
+      res.render("index",{
+        alert: true,
+        alertTitle: "Sesión Cerrada",
+        alertMessage: "Su sesión se ha cerrado correctamente",
+        alertIcon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        ruta: "index",
+      });
+      
     });
   });
   
