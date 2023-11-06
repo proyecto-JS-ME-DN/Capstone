@@ -40,6 +40,7 @@ const contactoRouter = require('./routes/contacto');
 const suscripcionRouter = require('./routes/suscripcion');
 const autenticacionRouter = require('./routes/autenticacion');
 const servicioRouter = require('./routes/servicio');
+const regadminRouter = require('./routes/reg_admin');
 
 // Usa el router con app.use(), indicando la ruta base
 
@@ -49,24 +50,9 @@ app.use('/contacto', contactoRouter);
 app.use('/suscripcion', suscripcionRouter);
 app.use('/autenticacion', autenticacionRouter);
 app.use('/servicio', servicioRouter);
+app.use('/reg_admin', regadminRouter);
 
 // Autenticacion paginas
-
-app.get("/", (req, res) => {
-  if (req.session.loggedin) {
-    res.render("index", {
-      login: true,
-      name: req.session.name,
-    });
-  } else {
-    res.render("index", {
-      login: false,
-      name: "debe iniciar sesión",
-    });
-  }
-});
-
-
 app.post("/auth", async (req, res) => {
   const user = req.body.user;
   const pass = req.body.pass;
@@ -114,6 +100,57 @@ app.post("/auth", async (req, res) => {
       showConfirmButton: true,
       timer: false,
       ruta: "login",
+    });
+  }
+});
+
+app.post("/auth_admin", async (req, res) => {
+  const user = req.body.user;
+  const pass = req.body.pass;
+  let passwordHaash = await bcryptjs.hash(pass, 8);
+  if (user && pass) {
+    pool.query(
+      'SELECT * FROM public.loginadmin WHERE "user" = $1',
+      [user],
+      async (error, results) => {
+        if (
+          results.rows.length == 0 ||
+          !(await bcryptjs.compare(pass, results.rows[0].password))
+        ) {
+          //Alerta despues de guardar
+          res.render("admin", {
+            alert: true,
+            alertTitle: "Error",
+            alertMessage: "Usuario y/o contraseña incorrecta",
+            alertIcon: "error",
+            showConfirmButton: true,
+            timer: false,
+            ruta: "admin",
+          });
+        } else {
+          req.session.loggedin = true;
+          req.session.name = results.rows[0].name;
+          res.render("admin", {
+            alert: true,
+            alertTitle: "Conexion Exitosa",
+            alertMessage: "Login correcto",
+            alertIcon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            ruta: "dashboard",
+          });
+        }
+      }
+    );
+  } else {
+    res.render("Advertencia", {
+      alert: true,
+      alertTitle: "Advertencia",
+      alertMessage: "Ingrese un usuario y/o contraseña",
+      alertIcon: "warning",
+      showConfirmButton: true,
+      timer: false,
+      ruta: "admin",
     });
   }
 });

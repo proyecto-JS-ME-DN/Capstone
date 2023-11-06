@@ -1,6 +1,14 @@
 // routes/index.js
 const express = require('express');
 const router = express.Router();
+const session = require("express-session");
+router.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 
 //Establecer Rutas
@@ -26,6 +34,52 @@ const router = express.Router();
   
   router.get("/register", (req, res) => {
     res.render("register");
+  });
+  
+  router.get("/admin", (req, res) => {
+    res.render("admin");
+  });
+
+  router.get("/dashboard", (req, res) => {
+    if (req.session.loggedin) {
+      res.render("dashboard", {
+        dashboard: true,
+        name: req.session.name,
+      });
+    } else {
+      res.render("index", {
+        dashboard: false,
+        name: "Debe iniciar sesión",
+      });
+    }
+  });
+
+  router.get("/lista_agendas", (req, res) => {
+    if (req.session.loggedin) {
+      res.render("lista_agendas", {
+        lista_agendas: true,
+        name: req.session.name,
+      });
+    } else {
+      res.render("index", {
+        lista_agendas: false,
+        name: "Debe iniciar sesión",
+      });
+    }
+  });
+
+  router.get("/reg_admin", (req, res) => {
+    if (req.session.loggedin) {
+      res.render("reg_admin", {
+        reg_admin: true,
+        name: req.session.name,
+      });
+    } else {
+      res.render("index", {
+        reg_admin: false,
+        name: "Debe iniciar sesión",
+      });
+    }
   });
 
 // Cerrar Sesion

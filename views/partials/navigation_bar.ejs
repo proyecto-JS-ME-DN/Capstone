@@ -22,16 +22,16 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item <%= currentPage === 'index' ? ' active' : '' %>">
               <a class="nav-link" href="/index"><strong>Inicio</strong><span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <%= currentPage === 'servicio' ? ' active' : '' %>">
               <a class="nav-link" href="/servicio"><strong>Servicios</strong></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <%= currentPage === 'producto' ? ' active' : '' %>">
               <a class="nav-link" href="/producto"><strong>Productos</strong></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <%= currentPage === 'contacto' ? ' active' : '' %>">
               <a class="nav-link" href="/contacto"><strong>Contacto</strong></a>
             </li>
             <li class="nav-item">

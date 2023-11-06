@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorsSolution</title>
+    <%- include('partials/estilos') %>
+</head>
+<body>
+  <div class="hero_area">
+    <%- include('partials/navigation_bar_admin', { currentPage: "reg_admin" }) %>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+      <div class="wrapper wrapper--w960">
+          <div class="card card-2">
+              <div></div>
+              
+              <div class="card-body">
+                  <div>
+                      <a href="dashboard" class="previous" id="reversa">&laquo; Volver</a>
+                  </div>
+
+                  <div style="text-align: center;">
+                      <h2 class="title">Registro Administrador</h2>
+                  </div>                     
+                  <form method="POST" action="reg_admin">
+
+                      <div class="input-group">
+                          <input class="input--style-2" type="text" name="user" placeholder="Usuario" required>
+                      </div>
+                      <div class="input-group">
+                          <input class="input--style-2" type="password" name="pass" required placeholder="Contraseña" required>
+                      </div>
+                      <div style="display: inline;" >
+                          <input  type="submit" class="btn btn-success margen-arriba" value="Guardar" >
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('partials/sweetalert') %>
+<%- include('partials/scripts') %>
+</html>
