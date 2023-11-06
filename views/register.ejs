@@ -8,25 +8,52 @@
 </head>
 <body class="sub_page">
     <%- include('partials/navigation_bar') %>
-    <div class="register-form">
-        <h1>Formulario Registro</h1>
-        <form action="register" method="post">
-            <label for="user">Nombre usuario</label>
-            <input type="text" name="user" required>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div></div>
+                
+                <div class="card-body">
+                    <div>
+                        <a href="index" class="previous" id="reversa">&laquo; Previous</a>
+                    </div>
 
-            <label for="name">Nombre completo</label>
-            <input type="text" name="name" required>
+                    <div style="text-align: center;">
+                        <h2 class="title">Registro</h2>
+                    </div>
+                        
+                    <form method="POST" action="register">
 
-            <label for="pass">Contraseña</label>
-            <input type="password" name="pass" required>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" name="user" placeholder="Usuario" required>
+                        </div>
 
-            <div style="display: inline;">
-                <a href="/" class="btn-cancel">Cancel</a>
-                <input type="submit" class="btn-save" value="Guardar">
+                        <!--<input type="text" name="user" required>-->
+
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" name="name" required placeholder="Nombre Completo" required>
+                        </div>
+
+                        <!--<input type="text" name="name" required>-->
+
+                        <div class="input-group">
+                            <input class="input--style-2" type="password" name="pass" required placeholder="Contraseña" required>
+                        </div>
+                        
+                        <!--<input type="password" name="pass" required>-->
+
+
+                        <div style="display: inline;" >
+                            <!--<a href="/" class="btn-cancel">Cancel</a>-->
+                            <input  type="submit" class="btn btn-success margen-arriba" value="Guardar" >
+                        </div>
+
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-      <%- include('partials/sweetalert') %> 
+    <%- include('partials/sweetalert') %> 
 
 </body>
 
