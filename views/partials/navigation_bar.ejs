@@ -34,19 +34,14 @@
             <li class="nav-item <%= currentPage === 'contacto' ? ' active' : '' %>">
               <a class="nav-link" href="/contacto"><strong>Contacto</strong></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">
-                <i class="fa fa-user" aria-hidden="true"></i><strong> Login</strong></a
-              >
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i><strong> Login</strong>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/login"><i class="fa fa-user" aria-hidden="true"></i><strong> Login</strong></a></li>
+                <li><a class="dropdown-item" href="/admin"><i class="fa fa-user" aria-hidden="true"></i><strong> Admin Login</strong></a></li>
+              </ul>
             </li>
-            <form class="form-inline">
-              <button
-                class="btn my-2 my-sm-0 nav_search-btn"
-                type="submit"
-              >
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
           </ul>
         </div>
       </nav>
