@@ -1,0 +1,56 @@
+<style>
+    .item {
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+    }
+    .item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transform: scale(1.05);
+    }
+    .product-image {
+        width: 100%;
+        height: auto;
+    }
+    .down-content {
+        padding: 15px;
+        text-align: center;
+    }
+    .hover-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hover-content ul {
+        list-style: none;
+        padding: 0;
+    }
+    .hover-content ul li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+    .hover-content ul li a {
+        color: white;
+        font-size: 20px;
+    }
+    .item:hover .hover-content {
+        opacity: 1;
+    }
+    .product-image {
+        width: 100%;
+        height: 200px; /* Ajusta esto a la altura que desees */
+        object-fit: contain;
+    }    
+</style>
