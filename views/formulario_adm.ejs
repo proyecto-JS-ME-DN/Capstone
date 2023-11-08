@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorsSolution</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>
+</head>
+<body>
+  <div class="hero_area">
+    <%- include('partials/navigation_bar_admin', { currentPage: "dashboard" }) %>
+    <% if (typeof data !== 'undefined' && typeof data.contacto !== 'undefined') { %>
+        <table>
+            <tr>
+                <th>ID Contacto</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Mensaje</th>
+            </tr>
+            <% data.contacto.forEach(function(row) { %>
+                <tr>
+                    <td><%= row.id_contacto %></td>
+                    <td><%= row.nombre %></td>
+                    <td><%= row.telefono %></td>
+                    <td><%= row.correo %></td>
+                    <td><%= row.mensaje %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } %>
+    
+    
+</div>
+</body>
+
+<%- include('partials/sweetalert') %>
+<%- include('partials/scripts') %>
+</html>

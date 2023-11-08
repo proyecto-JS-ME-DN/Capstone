@@ -11,6 +11,106 @@ router.use(
   })
 );
 
+async function getLoginData() {
+  try {
+      const result = await pool.query('SELECT * FROM public.login');
+      return result.rows;
+  } catch (err) {
+      console.error(err);
+  }
+}
+
+async function getContactoData() {
+  try {
+      const result = await pool.query('SELECT * FROM public.contacto');
+      return result.rows;
+  } catch (err) {
+      console.error(err);
+  }
+}
+
+const { spawn } = require('child_process');
+
+router.get('/dashboard', async (req, res) => {
+  const loginData = await getLoginData();
+  const contactoData = await getContactoData();
+  const python = spawn('python', ['./script.py']);
+  let dataToSend;
+
+  python.stdout.on('data', function (data) {
+      console.log('Pipe data from python script ...');
+      dataToSend = JSON.parse(data);
+  });
+
+  python.stdin.write(JSON.stringify({login: loginData, contacto: contactoData}));
+  python.stdin.end();
+
+  python.on('close', (code) => {
+      console.log(`child process close all stdio with code ${code}`);
+      if (req.session.loggedin) {
+          res.render("dashboard", {
+              dashboard: true,
+              name: req.session.name,
+              data: dataToSend
+          });
+      } else {
+          res.render("index", {
+              dashboard: false,
+              name: "Debe iniciar sesión",
+              alert: true,
+              alertTitle: "Debe iniciar sesión como administrador",
+              alertMessage: "Debe iniciar sesión como administrador",
+              alertIcon: "error",
+              showConfirmButton: false,
+              timer: 1000,
+              ruta: "index",
+          });
+      }
+  });
+});
+
+router.get('/formulario_adm', async (req, res) => {
+  const loginData = await getLoginData();
+  const contactoData = await getContactoData();
+  const python = spawn('python', ['./script.py']);
+  let dataToSend;
+
+  python.stdout.on('data', function (data) {
+      console.log('Pipe data from python script ...');
+      dataToSend = JSON.parse(data);
+  });
+
+  python.stdin.write(JSON.stringify({login: loginData, contacto: contactoData}));
+  python.stdin.end();
+
+  python.on('close', (code) => {
+      console.log(`child process close all stdio with code ${code}`);
+      if (req.session.loggedin) {
+          res.render("formulario_adm", {
+              formulario_adm: true,
+              name: req.session.name,
+              data: dataToSend
+          });
+      } else {
+          res.render("index", {
+              formulario_adm: false,
+              name: "Debe iniciar sesión",
+              alert: true,
+              alertTitle: "Debe iniciar sesión como administrador",
+              alertMessage: "Debe iniciar sesión como administrador",
+              alertIcon: "error",
+              showConfirmButton: false,
+              timer: 1000,
+              ruta: "index",
+          });
+      }
+  });
+});
+
+
+
+
+
 async function getAgendasExtData() {
   try {
       const result = await pool.query('SELECT * FROM public.agenda_externo');
@@ -70,6 +170,28 @@ async function getAgendasExtData() {
       });
     }
   });
+
+  router.get("/formulario_adm", (req, res) => {
+    if (req.session.loggedin) {
+      res.render("formulario_adm", {
+        dashboard: true,
+        name: req.session.name,
+      });
+    } else {
+      res.render("index", {
+        dashboard: false,
+        name: "Debe iniciar sesión",
+        alert: true,
+        alertTitle: "Debe iniciar sesión como administrador",
+        alertMessage: "Debe iniciar sesión como administrador",
+        alertIcon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        ruta: "index",
+      });
+    }
+});
+
 
   router.get("/lista_agendas", async (req, res) => {
     const dataext = await getAgendasExtData();
