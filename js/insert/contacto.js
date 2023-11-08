@@ -1,8 +1,7 @@
 // routes/contacto.js
 const express = require('express');
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
-const pool = require('../database/db');
+const pool = require('../../database/db');
 
 // Formulario Contacto
 router.post("/", async (req, res) => {

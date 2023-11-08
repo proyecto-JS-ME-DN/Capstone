@@ -35,11 +35,11 @@ const pool = require("./database/db");
 
 // Importa js desde router
 const rutas = require('./routes/rutas');
-const registerRouter = require('./routes/register');
-const contactoRouter = require('./routes/contacto');
-const suscripcionRouter = require('./routes/suscripcion');
-const servicioRouter = require('./routes/servicio');
-const regadminRouter = require('./routes/reg_admin');
+const registerRouter = require('./js/insert/register');
+const contactoRouter = require('./js/insert/contacto');
+const suscripcionRouter = require('./js/insert/suscripcion');
+const servicioRouter = require('./js/insert/servicio');
+const regadminRouter = require('./js/insert/reg_admin');
 
 // Usa el router con app.use(), indicando la ruta base
 

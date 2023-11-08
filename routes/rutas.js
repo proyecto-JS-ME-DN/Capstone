@@ -3,6 +3,12 @@ const express = require('express');
 const router = express.Router();
 const session = require("express-session");
 const pool = require("../database/db");
+const { spawn } = require('child_process');
+
+const { getLoginData, getContactoData, getAgendasExtData } = require('../js/consulta/consultas');
+const dashboardRoute = require('../js/session/dashboard');
+const formularioAdmRoute = require('../js/session/formularioAdm');
+
 router.use(
   session({
     secret: "secret",
@@ -10,109 +16,6 @@ router.use(
     saveUninitialized: true,
   })
 );
-
-//Consulta SQL
-async function getLoginData() {
-  try {
-      const result = await pool.query('SELECT * FROM public.login');
-      return result.rows;
-  } catch (err) {
-      console.error(err);
-  }
-}
-
-async function getContactoData() {
-  try {
-      const result = await pool.query('SELECT * FROM public.contacto');
-      return result.rows;
-  } catch (err) {
-      console.error(err);
-  }
-}
-
-async function getAgendasExtData() {
-  try {
-      const result = await pool.query('SELECT * FROM public.agenda_externo');
-      return result.rows;
-  } catch (err) {
-      console.error(err);
-  }
-}
-
-//Python
-const { spawn } = require('child_process');
-
-router.get('/dashboard', async (req, res) => {
-  const loginData = await getLoginData();
-  const contactoData = await getContactoData();
-  const python = spawn('python', ['python/procesadata.py']);
-  let dataToSend;
-
-  python.stdout.on('data', function (data) {
-      dataToSend = JSON.parse(data);
-  });
-
-  python.stdin.write(JSON.stringify({login: loginData, contacto: contactoData}));
-  python.stdin.end();
-
-  python.on('close', (code) => {
-      if (req.session.loggedin) {
-          res.render("dashboard", {
-              dashboard: true,
-              name: req.session.name,
-              data: dataToSend
-          });
-      } else {
-          res.render("index", {
-              dashboard: false,
-              name: "Debe iniciar sesión",
-              alert: true,
-              alertTitle: "Debe iniciar sesión como administrador",
-              alertMessage: "Debe iniciar sesión como administrador",
-              alertIcon: "error",
-              showConfirmButton: false,
-              timer: 1000,
-              ruta: "index",
-          });
-      }
-  });
-});
-
-router.get('/formulario_adm', async (req, res) => {
-  const loginData = await getLoginData();
-  const contactoData = await getContactoData();
-  const python = spawn('python', ['python/procesadata.py']);
-  let dataToSend;
-
-  python.stdout.on('data', function (data) {
-      dataToSend = JSON.parse(data);
-  });
-
-  python.stdin.write(JSON.stringify({login: loginData, contacto: contactoData}));
-  python.stdin.end();
-
-  python.on('close', (code) => {
-      if (req.session.loggedin) {
-          res.render("formulario_adm", {
-              formulario_adm: true,
-              name: req.session.name,
-              data: dataToSend
-          });
-      } else {
-          res.render("index", {
-              formulario_adm: false,
-              name: "Debe iniciar sesión",
-              alert: true,
-              alertTitle: "Debe iniciar sesión como administrador",
-              alertMessage: "Debe iniciar sesión como administrador",
-              alertIcon: "error",
-              showConfirmButton: false,
-              timer: 1000,
-              ruta: "index",
-          });
-      }
-  });
-});
 
 //Establecer Rutas
   router.get("/index", (req, res) => {
@@ -142,6 +45,10 @@ router.get('/formulario_adm', async (req, res) => {
   router.get("/admin", (req, res) => {
     res.render("admin");
   });
+
+  router.get('/formulario_adm', formularioAdmRoute);
+
+  router.get('/dashboard', dashboardRoute);
 
   router.get("/dashboard", (req, res) => {
     if (req.session.loggedin) {
@@ -250,6 +157,5 @@ router.get('/formulario_adm', async (req, res) => {
   router.get("/", (req, res) => {
     res.render("index.ejs");
   });
-  
-  
+    
 module.exports = router;

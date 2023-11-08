@@ -3,8 +3,7 @@
 // routes/suscripcion.js
 const express = require('express');
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
-const pool = require('../database/db');
+const pool = require('../../database/db');
 
 router.post("/index", async (req, res) => {
     const { correo } = req.body;
@@ -13,7 +12,6 @@ router.post("/index", async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          //Alerta despues de guardar
           res.render("index", {
             alert: true,
             alertTitle: "Suscrito",

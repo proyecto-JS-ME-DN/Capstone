@@ -2,26 +2,25 @@
 const express = require('express');
 const router = express.Router();
 const bcryptjs = require('bcryptjs');
-const pool = require('../database/db');
+const pool = require('../../database/db');
 
-// Registrarse en PostgreSQL
+
 router.post("/", async (req, res) => {
-  const { user, name, pass } = req.body;
+  const { user, pass } = req.body;
   let passwordHaash = await bcryptjs.hash(pass, 8);
   pool.query(
-    'INSERT INTO public.login ("user", name, password) VALUES ($1, $2, $3)', [user, name, passwordHaash], async (error, results) => {
+    'INSERT INTO public.loginadmin ("user",  password) VALUES ($1, $2)', [user, passwordHaash], async (error, results) => {
       if (error) {
         console.log(error);
       } else {
-        //Alerta despues de guardar
-        res.render("register", {
+        res.render("reg_admin", {
           alert: true,
           alertTitle: "Registro",
           alertMessage: "Registro Exitoso",
           alertIcon: "success",
           showConfirmButton: false,
           timer: 1500,
-          ruta: "",
+          ruta: "dashboard",
         });
       }
     }

@@ -3,8 +3,7 @@
 // routes/formservicio.js
 const express = require('express');
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
-const pool = require('../database/db');
+const pool = require('../../database/db');
 
 router.post("/", async (req, res) => {
     const {nombre,correo,patente,marca,tipo,fecha,hora} = req.body;
@@ -13,7 +12,6 @@ router.post("/", async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          //Alerta despues de guardar
           res.render("servicio", {
             alert: true,
             alertTitle: "Agenda Registrada",
