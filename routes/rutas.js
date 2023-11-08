@@ -11,6 +11,7 @@ router.use(
   })
 );
 
+//Consulta SQL
 async function getLoginData() {
   try {
       const result = await pool.query('SELECT * FROM public.login');
@@ -29,6 +30,16 @@ async function getContactoData() {
   }
 }
 
+async function getAgendasExtData() {
+  try {
+      const result = await pool.query('SELECT * FROM public.agenda_externo');
+      return result.rows;
+  } catch (err) {
+      console.error(err);
+  }
+}
+
+//Python
 const { spawn } = require('child_process');
 
 router.get('/dashboard', async (req, res) => {
@@ -38,7 +49,6 @@ router.get('/dashboard', async (req, res) => {
   let dataToSend;
 
   python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script ...');
       dataToSend = JSON.parse(data);
   });
 
@@ -46,7 +56,6 @@ router.get('/dashboard', async (req, res) => {
   python.stdin.end();
 
   python.on('close', (code) => {
-      console.log(`child process close all stdio with code ${code}`);
       if (req.session.loggedin) {
           res.render("dashboard", {
               dashboard: true,
@@ -76,7 +85,6 @@ router.get('/formulario_adm', async (req, res) => {
   let dataToSend;
 
   python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script ...');
       dataToSend = JSON.parse(data);
   });
 
@@ -84,7 +92,6 @@ router.get('/formulario_adm', async (req, res) => {
   python.stdin.end();
 
   python.on('close', (code) => {
-      console.log(`child process close all stdio with code ${code}`);
       if (req.session.loggedin) {
           res.render("formulario_adm", {
               formulario_adm: true,
@@ -106,20 +113,6 @@ router.get('/formulario_adm', async (req, res) => {
       }
   });
 });
-
-
-
-
-
-async function getAgendasExtData() {
-  try {
-      const result = await pool.query('SELECT * FROM public.agenda_externo');
-      return result.rows; // Añade esta línea
-  } catch (err) {
-      console.error(err);
-  }
-}
-
 
 //Establecer Rutas
   router.get("/index", (req, res) => {

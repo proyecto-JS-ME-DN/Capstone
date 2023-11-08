@@ -38,7 +38,6 @@ const rutas = require('./routes/rutas');
 const registerRouter = require('./routes/register');
 const contactoRouter = require('./routes/contacto');
 const suscripcionRouter = require('./routes/suscripcion');
-const autenticacionRouter = require('./routes/autenticacion');
 const servicioRouter = require('./routes/servicio');
 const regadminRouter = require('./routes/reg_admin');
 
@@ -48,7 +47,6 @@ app.use('/', rutas);
 app.use('/register', registerRouter);
 app.use('/contacto', contactoRouter);
 app.use('/suscripcion', suscripcionRouter);
-app.use('/autenticacion', autenticacionRouter);
 app.use('/servicio', servicioRouter);
 app.use('/reg_admin', regadminRouter);
 
