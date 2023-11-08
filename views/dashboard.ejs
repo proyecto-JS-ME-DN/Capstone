@@ -6,6 +6,7 @@
     <title>MotorsSolution</title>
     <%- include('partials/bootstrapcss') %>
     <%- include('partials/estilos') %>
+    <%- include('partials/tablasqlcss') %>
 </head>
 <body>
   <div class="hero_area">
@@ -13,9 +14,9 @@
     <% if (typeof data !== 'undefined' && typeof data.login !== 'undefined') { %>
         <table>
             <tr>
-                <th>ID Contacto</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Contraseña</th>
             </tr>
             <% data.login.forEach(function(row) { %>
                 <tr>
