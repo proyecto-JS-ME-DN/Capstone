@@ -8,6 +8,7 @@ const { spawn } = require('child_process');
 const { getLoginData, getContactoData, getAgendasExtData, buscar } = require('../js/consulta/consultas');
 const dashboardRoute = require('../js/session/dashboard');
 const formularioAdmRoute = require('../js/session/formularioAdm');
+const eliminar = require('../js/delete/delete');
 
 router.use(
   session({
@@ -47,10 +48,9 @@ router.use(
   });
 
   router.get('/formulario_adm', formularioAdmRoute);
-
   router.get('/dashboard', dashboardRoute);
-
   router.get('/buscar', buscar);
+  router.get('/eliminar/:id', eliminar);
 
   router.get("/dashboard", (req, res) => {
     if (req.session.loggedin) {
