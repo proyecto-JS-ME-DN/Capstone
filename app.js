@@ -50,6 +50,7 @@ app.use('/suscripcion', suscripcionRouter);
 app.use('/servicio', servicioRouter);
 app.use('/reg_admin', regadminRouter);
 
+
 // Autenticacion paginas
 app.post("/auth", async (req, res) => {
   const user = req.body.user;
@@ -153,8 +154,21 @@ app.post("/auth_admin", async (req, res) => {
   }
 });
 
+
+app.get('/eliminar/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+      await pool.query('DELETE FROM public.login WHERE id = $1', [id]);
+      res.redirect('/dashboard');
+  } catch (err) {
+      console.error(err);
+  }
+});
+
+
+
 // Server local
 app.listen(3000, () => {
   console.log('\x1b[35m%s\x1b[0m\x1b[32m%s\x1b[0m',
-  'El servidor está funcionando correctamente en ', 'http://localhost:3000');
+  'El servidor está funcionando correctamente en ', 'HTTP://localhost:3000');
 });

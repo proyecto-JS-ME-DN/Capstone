@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="es-es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MotorsSolution</title>
-    <%- include('partials/bootstrapcss') %>
-    <%- include('partials/estilos') %>
+    <%- include('partials/bootstrapcss') %> <%- include('partials/estilos') %>
     <%- include('partials/tablasqlcss') %>
-</head>
-<body>
-  <div class="hero_area">
-    <%- include('partials/navigation_bar_admin', { currentPage: "dashboard" }) %>
-    <% if (typeof data !== 'undefined' && typeof data.login !== 'undefined') { %>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Contraseña</th>
-            </tr>
-            <% data.login.forEach(function(row) { %>
-                <tr>
-                    <td><%= row.id %></td>
-                    <td><%= row.user %></td>
-                    <td><%= row.password %></td>
-                </tr>
-            <% }); %>
-        </table>
-    <% } %>
-    
-  
-  
-  </div>
-</body>
-
-<%- include('partials/sweetalert') %>
-<%- include('partials/scripts') %>
+  </head>
+  <body>
+    <div class="hero_area">
+      <%- include('partials/navigation_bar_admin', { currentPage: "dashboard" })
+      %>
+      <div class="apple-form">
+        <form action="/buscar" method="GET">
+          <input type="text" name="id" placeholder="Buscar por ID" />
+          <input type="submit" value="Buscar" />
+        </form>
+      </div>
+      <% if (typeof data !== 'undefined' && typeof data.login !== 'undefined') {
+      %>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Contraseña</th>
+          <th>Acción</th>
+        </tr>
+        <% data.login.forEach(function(row) { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><%= row.user %></td>
+          <td><%= row.password %></td>
+          <td style="text-align: center;">
+            <button onclick="confirmDelete('<%= row.id %>')" style="background-color: transparent; border: none;">
+                <i class="fa fa-trash" style="color: red; font-size: 24px;"></i>
+            </button>
+        </td>        
+        </tr>
+        <% }); %>
+      </table>
+      <% } %>
+    </div>
+  </body>
+  <%- include('partials/sweetalertdelete') %> <%- include('partials/scripts') %>
 </html>

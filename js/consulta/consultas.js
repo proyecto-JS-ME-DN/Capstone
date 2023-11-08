@@ -28,5 +28,20 @@ async function getLoginData() {
     }
   }
 
-  module.exports = { getLoginData, getContactoData, getAgendasExtData };
+  async function buscar(req, res) {
+    const id = req.query.id;
+    try {
+        let result;
+        if (id) {
+            result = await pool.query('SELECT * FROM public.login WHERE id = $1', [id]);
+        } else {
+            result = await pool.query('SELECT * FROM public.login');
+        }
+        res.render('dashboard', { data: { login: result.rows } });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+  module.exports = { getLoginData, getContactoData, getAgendasExtData, buscar };
 

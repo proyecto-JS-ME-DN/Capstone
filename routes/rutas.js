@@ -5,7 +5,7 @@ const session = require("express-session");
 const pool = require("../database/db");
 const { spawn } = require('child_process');
 
-const { getLoginData, getContactoData, getAgendasExtData } = require('../js/consulta/consultas');
+const { getLoginData, getContactoData, getAgendasExtData, buscar } = require('../js/consulta/consultas');
 const dashboardRoute = require('../js/session/dashboard');
 const formularioAdmRoute = require('../js/session/formularioAdm');
 
@@ -49,6 +49,8 @@ router.use(
   router.get('/formulario_adm', formularioAdmRoute);
 
   router.get('/dashboard', dashboardRoute);
+
+  router.get('/buscar', buscar);
 
   router.get("/dashboard", (req, res) => {
     if (req.session.loggedin) {
