@@ -45,7 +45,7 @@ const { spawn } = require('child_process');
 router.get('/dashboard', async (req, res) => {
   const loginData = await getLoginData();
   const contactoData = await getContactoData();
-  const python = spawn('python', ['./script.py']);
+  const python = spawn('python', ['python/procesadata.py']);
   let dataToSend;
 
   python.stdout.on('data', function (data) {
@@ -81,7 +81,7 @@ router.get('/dashboard', async (req, res) => {
 router.get('/formulario_adm', async (req, res) => {
   const loginData = await getLoginData();
   const contactoData = await getContactoData();
-  const python = spawn('python', ['./script.py']);
+  const python = spawn('python', ['python/procesadata.py']);
   let dataToSend;
 
   python.stdout.on('data', function (data) {

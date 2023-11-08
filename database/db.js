@@ -10,11 +10,12 @@ const pool = new Pool({
 
 pool.connect((error, client, done) => {
     if(error){
-        console.log('el error de conexión es: '+error);
+        console.error(`Error de conexión: ${error}`);
         return;
     }
-    console.log('Conectado a la base de datos');
+    console.log('\x1b[36m%s\x1b[0m', 'Conexión exitosa a la base de datos');
     done();
 });
+
 
 module.exports = pool;

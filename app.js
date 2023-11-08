@@ -154,6 +154,7 @@ app.post("/auth_admin", async (req, res) => {
 });
 
 // Server local
-app.listen(3000, (req, res) => {
-  console.log("servidor funcionando en http://localhost:3000");
+app.listen(3000, () => {
+  console.log('\x1b[35m%s\x1b[0m\x1b[32m%s\x1b[0m',
+  'El servidor está funcionando correctamente en ', 'http://localhost:3000');
 });
