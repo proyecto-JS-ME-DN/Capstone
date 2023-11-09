@@ -50,35 +50,31 @@
 }
 
 @media (max-width: 576px) {
-  /* Aquí van los estilos específicos para pantallas con un ancho máximo de 576px */
-  .about_section .img-box {
-    margin-top: 45px;
+  .header_section .header_top .contact_nav a span {
+    display: none;
   }
 
-  .contact_section {
-    padding-bottom: 0;
+
+  .client_section .client_container {
+    width: 100%;
   }
 
-  .contact_section .heading_container {
-    padding-left: 15px;
-  }
-
-  .contact_section .map_container {
-    margin-top: 45px;
-  }
-
-  .contact_section .form_container {
-    padding: 0 15px;
+  .client_section .box {
     margin: 0;
   }
 
-  /* Añade estilos para que los elementos dentro de .about_section se apilen verticalmente */
-  .about_section .container {
+  .owl-nav {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    margin-top: 45px;
+  }
+
+  .client_section .owl-carousel .owl-nav .owl-prev,
+  .client_section .owl-carousel .owl-nav .owl-next {
+    position: unset;
+    margin: 0 2.5px;
   }
 }
-
 
 @media (max-width: 480px) {
   .slider_section .detail-box h1 {
