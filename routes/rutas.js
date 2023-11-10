@@ -27,10 +27,6 @@ router.use(
     res.render("contacto");
   });
   
-  router.get("/producto", (req, res) => {
-    res.render("producto");
-  });
-  
   router.get("/servicio", (req, res) => {
     res.render("servicio");
   });
@@ -159,5 +155,27 @@ router.use(
   router.get("/", (req, res) => {
     res.render("index.ejs");
   });
-    
+
+  router.get('/producto', (req, res) => {
+    // Ejecuta tu script de Python
+    const python = spawn('python', ['./python/paypal.py']);
+  
+    // Captura la salida del script
+    python.stdout.on('data', (data) => {
+      // La salida del script es el enlace de PayPal
+      const paypalUrl = data.toString();
+  
+      // Renderiza la vista con el enlace de PayPal
+      res.render('producto', { paypalUrl: paypalUrl });
+    });
+  
+    python.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+  
+    python.on('close', (code) => {
+    });
+  });
+
+   
 module.exports = router;

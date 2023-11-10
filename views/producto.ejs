@@ -10,7 +10,7 @@
 </head>
 <body class="sub_page">
     <%- include('partials/navigation_bar', { currentPage: "producto" }) %>
-    <%- include('partials/producto') %>
+    <%- include('partials/producto', { paypalUrl: paypalUrl }) %>
     <%- include('partials/pago') %>
 </body>
 <%- include('partials/sub_footer') %>
