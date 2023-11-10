@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
+
 //invocamos dotenv
 const dotenv = require("dotenv");
 dotenv.config({ path: "env/.env" });
@@ -44,8 +45,8 @@ const suscripcionRouter = require('./js/insert/suscripcion');
 const servicioRouter = require('./js/insert/servicio');
 const regadminRouter = require('./js/insert/reg_admin');
 
-// Usa el router con app.use(), indicando la ruta base
 
+// Usa el router con app.use(), indicando la ruta base
 app.use('/', rutas);
 app.use('/register', registerRouter);
 app.use('/contacto', contactoRouter);
