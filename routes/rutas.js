@@ -55,6 +55,7 @@ router.use(
         name: req.session.name,
       });
     } else {
+      
       res.render("index", {
         dashboard: false,
         name: "Debe iniciar sesión",
