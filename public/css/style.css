@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Black+Ops+One");
+
+
 body {
   font-family: Arial, sans-serif;
   color: #0c0c0c;
@@ -167,6 +170,7 @@ a:focus {
   font-weight: bold;
   font-size: 24px;
   color: #ffffff;
+  font-family: 'Black Ops One';
 }
 
 .custom_nav-container {
