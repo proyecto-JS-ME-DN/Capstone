@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
+
 //invocamos dotenv
 const dotenv = require("dotenv");
 dotenv.config({ path: "env/.env" });
