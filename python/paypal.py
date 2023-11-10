@@ -18,8 +18,8 @@ body = {
         'brand_name': 'MotorsSolution',
         'landing_page': 'NO_PREFERENCE',
         'user_action': 'PAY_NOW',
-        'return_url': 'http://localhost:3000/execute-payment',
-        'cancel_url': 'http://localhost:3000/cancel-payment'
+        'return_url': 'https://motorssolution.onrender.com/execute-payment',
+        'cancel_url': 'https://motorssolution.onrender.com/cancel-payment'
     }
 }
 
