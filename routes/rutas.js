@@ -48,6 +48,28 @@ router.get("/admin", (req, res) => {
   res.render("admin");
 });
 
+//Paypal
+router.get("/producto", (req, res) => {
+  // Ejecuta tu script de Python
+  const python = spawn("python", ["./python/paypal.py"]);
+
+  // Captura la salida del script
+  python.stdout.on("data", (data) => {
+    // La salida del script es el enlace de PayPal
+    const paypalUrl = data.toString();
+
+    // Renderiza la vista con el enlace de PayPal
+    res.render("producto", { paypalUrl: paypalUrl });
+  });
+
+  python.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on("close", (code) => {});
+});
+
+
 router.get("/formulario_adm", formularioAdmRoute);
 router.get("/dashboard", dashboardRoute);
 router.get("/buscar", buscar);
@@ -157,28 +179,6 @@ router.get("/logout", (req, res) => {
 
 router.get("/", (req, res) => {
   res.render("index.ejs");
-});
-
-
-//Paypal
-router.get("/producto", (req, res) => {
-  // Ejecuta tu script de Python
-  const python = spawn("python", ["./python/paypal.py"]);
-
-  // Captura la salida del script
-  python.stdout.on("data", (data) => {
-    // La salida del script es el enlace de PayPal
-    const paypalUrl = data.toString();
-
-    // Renderiza la vista con el enlace de PayPal
-    res.render("producto", { paypalUrl: paypalUrl });
-  });
-
-  python.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
-  });
-
-  python.on("close", (code) => {});
 });
 
 module.exports = router;
