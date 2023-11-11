@@ -81,8 +81,8 @@ const createPayment = (req, res) => {
           brand_name: 'MotorsSolution',
           landing_page: 'NO_PREFERENCE', // Default
           user_action: 'PAY_NOW', // Accion para que en paypal muestre el monto del pago
-          return_url: 'https://motorssolution.onrender.com/execute-payment', // Url despues de realizar el pago
-          cancel_url: 'https://motorssolution.onrender.com/cancel-payment' // Url despues de realizar el pago
+          return_url: `https://motorssolution.onrender.com/execute-payment`, // Url despues de realizar el pago
+          cancel_url: `https://motorssolution.onrender.com/cancel-payment` // Url despues de realizar el pago
       }
   }
   //https://api-m.sandbox.paypal.com/v2/checkout/orders [POST]
