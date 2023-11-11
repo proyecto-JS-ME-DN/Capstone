@@ -166,20 +166,19 @@ router.get("/producto", (req, res) => {
   const python = spawn("python", ["./python/paypal.py"]);
 
   // Captura la salida del script
-  let paypalUrl = '';
   python.stdout.on("data", (data) => {
     // La salida del script es el enlace de PayPal
-    paypalUrl += data.toString();
+    const paypalUrl = data.toString();
+
+    // Renderiza la vista con el enlace de PayPal
+    res.render("producto", { paypalUrl: paypalUrl });
   });
 
   python.stderr.on("data", (data) => {
     console.error(`stderr: ${data}`);
   });
 
-  python.on("close", (code) => {
-    // Renderiza la vista con el enlace de PayPal
-    res.render("producto", { paypalUrl: paypalUrl });
-  });
+  python.on("close", (code) => {});
 });
 
 
