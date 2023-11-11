@@ -87,25 +87,25 @@ const createPayment = (req, res) => {
   }
   //https://api-m.sandbox.paypal.com/v2/checkout/orders [POST]
 
-  request.post('${PAYPAL_API}/v2/checkout/orders', {
-      auth,
-      body,
-      json: true
-  }, (err, response) => {
-      res.json({ data: response.body })
-  })
+  request.post(`${PAYPAL_API}/v2/checkout/orders`, {
+    auth,
+    body,
+    json: true
+}, (err, response) => {
+    res.json({ data: response.body })
+})
 }
 
 const executePayment = (req, res) => {
-  const token = req.query.token;
+const token = req.query.token;
 
-  request.post('${PAYPAL_API}/v2/checkout/orders/${token}/capture', {
-      auth,
-      body: {},
-      json: true
-  }, (err, response) => {
-      res.json({ data: response.body })
-  })
+request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {
+    auth,
+    body: {},
+    json: true
+}, (err, response) => {
+    res.json({ data: response.body })
+})
 }
 
 app.post('/create-payment', createPayment)
