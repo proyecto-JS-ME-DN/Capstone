@@ -15,6 +15,15 @@ const dashboardRoute = require("../js/session/dashboard");
 const formularioAdmRoute = require("../js/session/formularioAdm");
 const eliminar = require("../js/delete/delete");
 
+const getPaypalUrl = require('../js/session/paypal');
+
+router.get("/producto", async (req, res) => {
+  const paypalUrl = await getPaypalUrl();
+  console.log(`PayPal URL: ${paypalUrl}`);
+  res.render("producto", { paypalUrl: paypalUrl });
+});
+
+
 router.use(
   session({
     secret: "secret",
@@ -159,7 +168,7 @@ router.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-
+/*
 //Paypal
 router.get("/producto", (req, res) => {
   // Ejecuta tu script de Python
@@ -177,10 +186,10 @@ router.get("/producto", (req, res) => {
   });
 
   python.on("close", (code) => {
-    // Renderiza la vista con el enlace de PayPal
+    console.log(`PayPal URL: ${paypalUrl}`);
     res.render("producto", { paypalUrl: paypalUrl });
-  });
+  });  
 });
-
+*/
 
 module.exports = router;
