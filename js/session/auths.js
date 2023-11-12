@@ -3,7 +3,7 @@
 const pool = require('../../database/db');
 const bcryptjs = require('bcryptjs');
 
-async function auth (req, res) {
+async function auths (req, res) {
   const user = req.body.user;
   const pass = req.body.pass;
   let passwordHaash = await bcryptjs.hash(pass, 8);
