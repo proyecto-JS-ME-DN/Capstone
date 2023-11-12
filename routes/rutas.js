@@ -47,11 +47,6 @@ router.get("/contacto", (req, res) => {
   res.render("contacto", { role } );
 });
 
-router.get("/producto", (req, res) => {
-  const role = req.session.loggedin ? req.session.role : "n_reg";
-  res.render("producto", { role } );
-});
-
 router.get("/servicio", (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
   res.render("servicio", { role } );
@@ -231,9 +226,10 @@ router.get("/producto", (req, res) => {
 const getPaypalUrl = require('../js/session/paypal');
 
 router.get("/producto", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
   const paypalUrl = await getPaypalUrl();
   console.log(`PayPal URL: ${paypalUrl}`);
-  res.render("producto", { paypalUrl: paypalUrl });
+  res.render("producto", { paypalUrl: paypalUrl, role });
 });
 
 
