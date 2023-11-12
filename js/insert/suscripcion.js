@@ -12,6 +12,7 @@ router.post("/index", async (req, res) => {
         if (error) {
           console.log(error);
         } else {
+          const role = req.session.loggedin ? req.session.role : "n_reg";
           res.render("index", {
             alert: true,
             alertTitle: "Suscrito",
@@ -20,6 +21,7 @@ router.post("/index", async (req, res) => {
             showConfirmButton: false,
             timer: 1500,
             ruta: "",
+            role
           });
         }
       }

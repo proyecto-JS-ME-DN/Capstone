@@ -15,26 +15,28 @@ async function dashboardRoute(req, res) {
   python.stdin.end();
 
   python.on('close', (code) => {
-      if (req.session.loggedin) {
-          res.render("dashboard", {
-              dashboard: true,
-              name: req.session.name,
-              data: dataToSend
-          });
-      } else {
-          res.render("index", {
-              dashboard: false,
-              name: "Debe iniciar sesión",
-              alert: true,
-              alertTitle: "Debe iniciar sesión como administrador",
-              alertMessage: "Debe iniciar sesión como administrador",
-              alertIcon: "error",
-              showConfirmButton: false,
-              timer: 1000,
-              ruta: "index",
-          });
-      }
-  });
+    if (req.session.loggedin) {
+        res.render("dashboard", {
+            dashboard: true,
+            name: req.session.name,
+            data: dataToSend
+        });
+    } else {
+      const role = req.session.loggedin ? req.session.role : "n_reg";
+        res.render("index", {
+            dashboard: false,
+            name: "Debe iniciar sesión",
+            alert: true,
+            alertTitle: "Debe iniciar sesión como administrador",
+            alertMessage: "Debe iniciar sesión como administrador",
+            alertIcon: "error",
+            showConfirmButton: false,
+            timer: 1000,
+            ruta: "index",
+            role
+        });
+    }
+});
 }
 
 module.exports = dashboardRoute;

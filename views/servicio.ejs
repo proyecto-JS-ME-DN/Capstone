@@ -8,7 +8,7 @@
     <%- include('partials/estilos') %>
 </head>
 <body class="sub_page">
-    <%- include('partials/navigation_bar', { currentPage: "servicio" }) %>
+    <%- include('partials/navigation_bar', { currentPage: "servicio", activeRole: role }) %>
 
     <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
         <div class="wrapper wrapper--w960">
@@ -16,7 +16,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Agenda De Servicios</h2>
-                    <form method="POST" action="servicio">
+                    <form method="POST" action="/servicio">
 
                         <div class="input-group">
                             <input class="input--style-2" type="text" name="nombre" placeholder="Nombre Completo" required>

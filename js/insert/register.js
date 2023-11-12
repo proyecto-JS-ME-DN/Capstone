@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
       if (error) {
         console.log(error);
       } else {
+        const role = req.session.loggedin ? req.session.role : "n_reg";
         res.render("register", {
           alert: true,
           alertTitle: "Registro",
@@ -21,6 +22,7 @@ router.post("/", async (req, res) => {
           showConfirmButton: false,
           timer: 1500,
           ruta: "",
+          role
         });
       }
     }

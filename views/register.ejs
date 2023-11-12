@@ -8,7 +8,7 @@
     <%- include('partials/estilos') %>
 </head>
 <body class="sub_page">
-    <%- include('partials/navigation_bar', { currentPage: "register" }) %>
+    <%- include('partials/navigation_bar', { currentPage: "register", activeRole: role }) %>
     <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
         <div class="wrapper wrapper--w960">
             <div class="card card-2">
@@ -23,7 +23,7 @@
                         <h2 class="title">Registro</h2>
                     </div>
                         
-                    <form method="POST" action="register">
+                    <form method="POST" action="/register">
 
                         <div class="input-group">
                             <input class="input--style-2" type="text" name="user" placeholder="Usuario" required>

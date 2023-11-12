@@ -22,6 +22,7 @@ async function formularioAdmRoute(req, res) {
               data: dataToSend
           });
       } else {
+        const role = req.session.loggedin ? req.session.role : "n_reg";
           res.render("index", {
               formulario_adm: false,
               name: "Debe iniciar sesión",
@@ -32,6 +33,7 @@ async function formularioAdmRoute(req, res) {
               showConfirmButton: false,
               timer: 1000,
               ruta: "index",
+              role
           });
       }
   });

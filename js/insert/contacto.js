@@ -12,6 +12,7 @@ router.post("/", async (req, res) => {
           console.log(error);
         } else {
           //Alerta despues de guardar
+          const role = req.session.loggedin ? req.session.role : "n_reg";
           res.render("contacto", {
             alert: true,
             alertTitle: "Mensaje Enviado",
@@ -20,6 +21,7 @@ router.post("/", async (req, res) => {
             showConfirmButton: false,
             timer: 1500,
             ruta: "",
+            role
           });
         }
       }

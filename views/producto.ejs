@@ -9,7 +9,7 @@
     <%- include('partials/productocss') %>
 </head>
 <body class="sub_page">
-    <%- include('partials/navigation_bar', { currentPage: "producto" }) %>
+    <%- include('partials/navigation_bar', { currentPage: "producto", activeRole: role }) %>
     <%- include('partials/producto', { paypalUrl: paypalUrl }) %>
     <%- include('partials/pago') %>
 </body>

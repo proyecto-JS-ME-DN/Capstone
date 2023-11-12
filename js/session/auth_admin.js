@@ -17,6 +17,7 @@ async function authAdmin(req, res) {
           !(await bcryptjs.compare(pass, results.rows[0].password))
         ) {
           //Alerta despues de guardar
+          const role = req.session.loggedin ? req.session.role : "n_reg";
           res.render("admin", {
             alert: true,
             alertTitle: "Error",
@@ -25,10 +26,13 @@ async function authAdmin(req, res) {
             showConfirmButton: true,
             timer: false,
             ruta: "admin",
+            role
           });
         } else {
+          const role = req.session.loggedin ? req.session.role : "n_reg";
           req.session.loggedin = true;
           req.session.name = results.rows[0].name;
+          req.session.role = "admin"
           res.render("admin", {
             alert: true,
             alertTitle: "Conexion Exitosa",
@@ -37,6 +41,7 @@ async function authAdmin(req, res) {
             showConfirmButton: false,
             timer: 1500,
             ruta: "dashboard",
+            role
           });
         }
       }
