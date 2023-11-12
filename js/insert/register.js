@@ -5,7 +5,7 @@ const bcryptjs = require('bcryptjs');
 const pool = require('../../database/db');
 
 // Registrarse en PostgreSQL
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   const { user, name, pass } = req.body;
   let passwordHaash = await bcryptjs.hash(pass, 8);
   pool.query(

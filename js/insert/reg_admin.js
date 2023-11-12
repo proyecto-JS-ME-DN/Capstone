@@ -5,7 +5,7 @@ const bcryptjs = require('bcryptjs');
 const pool = require('../../database/db');
 
 
-router.post("/", async (req, res) => {
+router.post("/reg_admin", async (req, res) => {
   const { user, pass } = req.body;
   let passwordHaash = await bcryptjs.hash(pass, 8);
   pool.query(

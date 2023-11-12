@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../../database/db');
 
-router.post("/index", async (req, res) => {
+router.post("/suscripcion", async (req, res) => {
     const { correo } = req.body;
     pool.query(
       "INSERT INTO public.suscripcion( correo ) VALUES ($1)", [correo], async (error, results) => {

@@ -4,7 +4,7 @@ const router = express.Router();
 const pool = require('../../database/db');
 
 // Formulario Contacto
-router.post("/", async (req, res) => {
+router.post("/contacto", async (req, res) => {
     const { nombre, telefono, correo, mensaje } = req.body;
     pool.query(
       "INSERT INTO public.contacto(nombre, telefono, correo, mensaje) VALUES ($1, $2, $3, $4)", [nombre, telefono, correo, mensaje], async (error, results) => {
