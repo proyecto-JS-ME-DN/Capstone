@@ -2,6 +2,7 @@
 <script type="text/javascript" src="public/js/bootstrap.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script type="text/javascript">
     $(".owl-carousel").owlCarousel({
@@ -20,4 +21,173 @@
         }
       }
     });
-  </script>
+</script>
+
+<script>
+  $(document).ready(function() {
+    // Cargar marcas al inicio
+    cargarMarcas();
+    aplicarSelectMarca($('#marca'));
+
+    // Actualizar modelos cuando se cambia la marca
+    $('#marca').change(function() {
+      var marcaId = obtenerMarcaId($('#marca').val());
+      cargarModelos(marcaId);
+    });
+  });
+
+  function cargarMarcas() {
+    // Utilizar $.getJSON para cargar las marcas desde el archivo JSON
+    $.getJSON('../../public/marcas/marcas.json', function(data) {
+      // Agregar opción de marcador de posición al elemento select de marca
+      $('#marca').append('<option value="" disabled selected>-- Marca del Vehículo --</option>');
+
+      // Agregar opciones al elemento select de marca
+      data.forEach(function(marca) {
+        $('#marca').append('<option value="' + marca.slug + '">' + marca.make + '</option>');
+      });
+
+      // Cargar modelos para la primera marca (opcional)
+      cargarModelos(obtenerMarcaId($('#marca').val()));
+    });
+  }
+
+  function cargarModelos(marcaId) {
+    // Utilizar $.getJSON para cargar los modelos desde el archivo JSON
+    $.getJSON('../../public/marcas/modelos.json', function(data) {
+      // Limpiar y agregar opción de marcador de posición al elemento select de modelos
+      $('#modelo').empty().append('<option value="" disabled selected>-- Modelo del Vehículo --</option>');
+
+      // Filtrar modelos por la marca seleccionada
+      var modelosFiltrados = data.filter(function(modelo) {
+        return modelo.idmake === marcaId;
+      });
+
+      // Agregar opciones al elemento select de modelos
+      modelosFiltrados.forEach(function(modelo) {
+        $('#modelo').append('<option value="' + modelo.slug + '">' + modelo.model + '</option>');
+      });
+
+      aplicarSelectModelo($('#modelo'));
+    });
+  }
+
+  function obtenerMarcaId(marcaSlug) {
+    // Utilizar $.getJSON para cargar las marcas desde el archivo JSON
+    var marcaId = null;
+    $.ajax({
+      url: '../../public/marcas/marcas.json',
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+        // Buscar la marca por su slug y obtener el id
+        var marcaSeleccionada = data.find(function(marca) {
+          return marca.slug === marcaSlug;
+        });
+
+        if (marcaSeleccionada) {
+          marcaId = marcaSeleccionada.id;
+        }
+      },
+      error: function(error) {
+        console.error('Error al cargar marcas:', error);
+      }
+    });
+
+    return marcaId;
+  }
+
+  function aplicarSelectMarca(selectElement) {
+    // Aplicar Select2 al elemento select
+    selectElement.select2({
+      placeholder: '-- Marca del Vehículo --',
+      width: '50%' // Ajusta el ancho según sea necesario
+    });
+  }
+  function aplicarSelectModelo(selectElement) {
+    // Aplicar Select2 al elemento select
+    selectElement.select2({
+      placeholder: '-- Modelo del Vehículo --',
+      width: '50%' // Ajusta el ancho según sea necesario
+    });
+  }
+</script>
+
+<script>
+  function validarPatente() {
+      var patenteInput = document.getElementById('patente');
+      var mensajePatente = document.getElementById('mensajePatente');
+      
+      var patente = patenteInput.value.toUpperCase(); // Convertir a mayúsculas
+      
+      // Utilizar una expresión regular para la validación
+      var patenteRegex = /^[A-Z]{4}\d{2}$/;
+      
+      if (patenteRegex.test(patente)) {
+          // Convertir las letras a mayúsculas si la patente es válida
+          patenteInput.value = patente;
+          
+          // Continuar con el procesamiento si la patente es válida
+          mensajePatente.innerHTML = ''; // Limpiar el mensaje de validación
+          patenteInput.style.border = '1px solid #ccc'; // Restaurar el borde a su estado original
+      } else {
+          // Mostrar mensaje de validación si la patente no es válida
+          mensajePatente.innerHTML = 'Patente no válida. Debe tener 4 letras seguidas de 2 números.';
+          patenteInput.style.border = '2px solid red'; // Cambiar el borde a rojo para indicar un error
+          patenteInput.focus(); // Devolver el foco al campo de entrada
+      }
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var horaInput = document.getElementById('hora');
+    var fechaInput = document.getElementById('fecha');
+    var opcionesHoraDatalist = document.getElementById('opcionesHora');
+
+    // Obtener la fecha actual y hora actual en el formato "YYYY-MM-DD" y "HH:mm"
+    var fechaActual = new Date().toISOString().split('T')[0];
+    var horaActual = new Date().toISOString().split('T')[1].slice(0, 5);
+
+    // Establecer la fecha mínima para la selección (hoy o más tarde)
+    fechaInput.min = fechaActual;
+
+    // Limitar las horas de atención entre las 8:30 AM y las 22:00 PM
+    horaInput.min = '08:30';
+    horaInput.max = '22:00';
+
+    // Agregar un evento de cambio para verificar las fechas seleccionadas
+    fechaInput.addEventListener('change', function () {
+      var fechaSeleccionada = this.value;
+
+      // Si la fecha seleccionada es hoy, permitir cualquier hora después de la hora actual
+      if (fechaSeleccionada === fechaActual) {
+        horaInput.disabled = false; // Habilitar el campo de hora
+        horaInput.value = horaActual; // Establecer la hora actual como predeterminada
+      } else {
+        // Si la fecha seleccionada es posterior a hoy, permitir cualquier hora
+        horaInput.disabled = false; // Habilitar el campo de hora
+        horaInput.value = '08:30'; // Establecer la hora a la apertura
+      }
+    });
+
+    // Configurar intervalos de 30 minutos en el campo de hora
+    horaInput.addEventListener('focus', function () {
+      // Limpiar las opciones existentes en el datalist
+      opcionesHoraDatalist.innerHTML = '';
+
+      // Filtrar las opciones de hora según la fecha seleccionada y las horas de atención
+      var horaApertura = 8; // Hora de apertura
+      var horaCierre = 22; // Hora de cierre
+      var intervalo = 30; // Intervalo de minutos
+
+      for (var horas = horaApertura; horas < horaCierre; horas++) {
+        for (var minutos = 0; minutos < 60; minutos += intervalo) {
+          var opcion = document.createElement('option');
+          opcion.value = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
+          opcionesHoraDatalist.appendChild(opcion);
+        }
+      }
+    });
+  });
+</script>

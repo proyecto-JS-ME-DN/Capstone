@@ -1387,6 +1387,37 @@ a:focus {
     padding: 50px 50px;
     padding-bottom: 88px;
   }
+
+  .select-group{
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .separador {
+    width: 50px; 
+  }
+  
+  .descripcion{
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .input--text {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 15px 20px;
+    display: block;
+    width: 100%; /* Ancho inicial al 100% */
+    background: transparent;
+    color: #5a5a5a;
+    transition: 0.5s;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-bottom: 2px solid #d5d5d5;
+    outline: none;
+    resize: vertical; /* Permitir redimensionamiento vertical */
+    overflow: hidden; /* Ocultar la barra de desplazamiento */
+  }
   
   @media (max-width: 767px) {
     .card-2 {
@@ -1402,10 +1433,6 @@ a:focus {
       display: block;
       padding: 60px 50px;
     }
-  }
-  
-  #desplegar {
-    margin-top: 20px;
   }
 
   /*Boton Reversa*/
