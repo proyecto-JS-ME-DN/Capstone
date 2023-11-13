@@ -67,6 +67,11 @@ router.get("/admin", (req, res) => {
   res.render("admin", { role } );
 });
 
+router.get("/cancel-payment", (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  res.render("cancel-payment", { role } );
+});
+
 router.get("/formulario_adm", formularioAdmRoute);
 router.get("/dashboard", dashboardRoute);
 router.get("/buscar", buscar);

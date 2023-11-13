@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>
+    <%- include('partials/productocss') %>
+<style>
+    h1 {
+        padding: 20px;
+        text-align: center;
+    }
+    .button {
+        display: block;
+        width: 200px;
+        height: 50px;
+        margin: 20px auto;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        line-height: 50px;
+        font-size: 1.2em;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body class="sub_page">
+    <%- include('partials/navigation_bar', { currentPage: "producto", activeRole: role }) %>
+    <h1>Pago Cancelado</h1>
+    <a href="/producto" class="button">Volver</a>
+</body>
+<%- include('partials/sub_footer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
+</html>
