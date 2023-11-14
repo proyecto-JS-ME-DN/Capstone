@@ -237,5 +237,18 @@ router.get("/producto", async (req, res) => {
   res.render("producto", { paypalUrl: paypalUrl, role });
 });
 
+const executePayment = require('../js/session/executePayment');
+
+router.get('/execute-payment', (req, res) => {
+    const role = req.session.loggedin ? req.session.role : "n_reg";
+    const token = req.query.token;
+    executePayment(token, (err, paymentData) => {
+        if (err) {
+            // manejar error
+        } else {
+            res.render('paymentResult', { paymentData: paymentData, role });
+        }
+    });
+});
 
 module.exports = router;

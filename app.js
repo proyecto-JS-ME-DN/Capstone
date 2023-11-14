@@ -83,6 +83,8 @@ const createPayment = (req, res) => {
           user_action: 'PAY_NOW', // Accion para que en paypal muestre el monto del pago
           return_url: `https://motorssolution.onrender.com/execute-payment`, // Url despues de realizar el pago
           cancel_url: `https://motorssolution.onrender.com/cancel-payment` // Url despues de realizar el pago
+//          return_url: `HTTP://localhost:3000/execute-payment`,
+//          cancel_url: `HTTP://localhost:3000/cancel-payment`
       }
   }
   //https://api-m.sandbox.paypal.com/v2/checkout/orders [POST]
@@ -96,20 +98,7 @@ const createPayment = (req, res) => {
 })
 }
 
-const executePayment = (req, res) => {
-const token = req.query.token;
-
-request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {
-    auth,
-    body: {},
-    json: true
-}, (err, response) => {
-    res.json({ data: response.body })
-})
-}
-
 app.post('/create-payment', createPayment)
-app.get('/execute-payment', executePayment)
 
 // Server local
 app.listen(3000, () => {

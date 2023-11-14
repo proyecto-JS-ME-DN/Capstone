@@ -19,8 +19,10 @@ const body = {
         brand_name: 'MotorsSolution',
         landing_page: 'NO_PREFERENCE',
         user_action: 'PAY_NOW',
-        return_url: 'https://motorssolution.onrender.com/execute-payment',
-        cancel_url: 'https://motorssolution.onrender.com/cancel-payment'
+        return_url: `https://motorssolution.onrender.com/execute-payment`,
+        cancel_url: `https://motorssolution.onrender.com/cancel-payment`
+//      return_url: `HTTP://localhost:3000/execute-payment`,
+//      cancel_url: `HTTP://localhost:3000/cancel-payment`
     }
 };
 

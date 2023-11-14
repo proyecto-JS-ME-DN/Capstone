@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>
+    <%- include('partials/productocss') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .receipt {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .receipt h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .receipt p {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .receipt p:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="sub_page">
+    <%- include('partials/navigation_bar', { currentPage: "paymentResult", activeRole: role }) %>
+    <div class="receipt">
+        <h1>Resultado del Pago</h1>
+        <% if (paymentData.payment_source && paymentData.payment_source.paypal) { %>
+        <p>ID del Pago: <%= paymentData.id %></p>
+        <p>Estado del Pago: <%= paymentData.status %></p>
+        <p>Email de PayPal: <%= paymentData.payment_source.paypal.email_address %></p>
+        <p>Nombre del comprador: <%= paymentData.payment_source.paypal.name.given_name %> <%= paymentData.payment_source.paypal.name.surname %></p>
+        <p>Código de país: <%= paymentData.payment_source.paypal.address.country_code %></p>
+        <p>Nombre completo de envío: <%= paymentData.purchase_units[0].shipping.name.full_name %></p>
+        <p>Dirección de envío: <%= paymentData.purchase_units[0].shipping.address.address_line_1 %>, <%= paymentData.purchase_units[0].shipping.address.admin_area_2 %>, <%= paymentData.purchase_units[0].shipping.address.admin_area_1 %>, <%= paymentData.purchase_units[0].shipping.address.postal_code %>, <%= paymentData.purchase_units[0].shipping.address.country_code %></p>
+        <p>Monto de la compra: <%= paymentData.purchase_units[0].payments.captures[0].amount.value %> <%= paymentData.purchase_units[0].payments.captures[0].amount.currency_code %></p>
+        <p>Monto bruto: <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.gross_amount.value %> <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.gross_amount.currency_code %></p>
+        <p>Comisión de PayPal: <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.value %> <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.currency_code %></p>
+        <p>Monto neto: <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.value %> <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.currency_code %></p>
+        <% } %>
+    </div>
+    </body>
+<%- include('partials/sub_footer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
+</html>
