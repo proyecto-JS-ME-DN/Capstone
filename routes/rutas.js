@@ -227,7 +227,7 @@ router.get("/producto", (req, res) => {
 });
 */
 
-// rutas.js
+// Compra Paypal
 const getPaypalUrl = require('../js/session/paypal');
 
 router.get("/producto", async (req, res) => {
@@ -237,18 +237,54 @@ router.get("/producto", async (req, res) => {
   res.render("producto", { paypalUrl: paypalUrl, role });
 });
 
+//Comprobante y Guardar en BD
 const executePayment = require('../js/session/executePayment');
 
 router.get('/execute-payment', (req, res) => {
-    const role = req.session.loggedin ? req.session.role : "n_reg";
-    const token = req.query.token;
-    executePayment(token, (err, paymentData) => {
-        if (err) {
-            // manejar error
-        } else {
-            res.render('paymentResult', { paymentData: paymentData, role });
-        }
-    });
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  const token = req.query.token;
+  executePayment(token, (err, paymentData) => {
+      if (err) {
+          // manejar error
+      } else {
+          if (paymentData.payment_source && paymentData.payment_source.paypal) {
+              const id_pago = paymentData.id;
+              const estado = paymentData.status;
+              const email_paypal = paymentData.payment_source.paypal.email_address;
+              const nombre_comprador = paymentData.payment_source.paypal.name.given_name + ' ' + paymentData.payment_source.paypal.name.surname;
+              const codigo_pais = paymentData.payment_source.paypal.address.country_code;
+              const nombre_envio = paymentData.purchase_units[0].shipping.name.full_name;
+              const direccion_envio = paymentData.purchase_units[0].shipping.address.address_line_1 + ', ' + paymentData.purchase_units[0].shipping.address.admin_area_2 + ', ' + paymentData.purchase_units[0].shipping.address.admin_area_1 + ', ' + paymentData.purchase_units[0].shipping.address.postal_code + ', ' + paymentData.purchase_units[0].shipping.address.country_code;
+              const monto_compra = paymentData.purchase_units[0].payments.captures[0].amount.value;
+              const monto_bruto = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.gross_amount.value;
+              const comision_paypal = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.value;
+              const monto_neto = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.value;
+
+              pool.query(
+                  'INSERT INTO public.comprobante("id_pago", "estado", "email_paypal", "nombre_comprador", "codigo_pais", "nombre_envio", "direccion_envio", "monto_compra", "monto_bruto", "comision_paypal", "monto_neto") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', 
+                  [id_pago, estado, email_paypal, nombre_comprador, codigo_pais, nombre_envio, direccion_envio, monto_compra, monto_bruto, comision_paypal, monto_neto], 
+                  async (error, results) => {
+                      if (error) {
+                          console.log(error);
+                      } else {
+                          res.render("paymentResult", {
+                              alert: true,
+                              alertTitle: "Compra Realizada",
+                              alertMessage: "Compra Realizada",
+                              alertIcon: "success",
+                              showConfirmButton: false,
+                              timer: 1500,
+                              ruta: "",
+                              paymentData: paymentData, role
+                          });
+                      }
+                  }
+              );
+          }
+      }
+  });
 });
+
+
 
 module.exports = router;
