@@ -10,6 +10,7 @@ const {
   getLoginData,
   getContactoData,
   getAgendasExtData,
+  getComprobante,
   buscar,
 } = require("../js/consulta/consultas");
 const dashboardRoute = require("../js/session/dashboard");
@@ -153,6 +154,36 @@ router.get("/lista_agendas", async (req, res) => {
     });
   }
 });
+
+router.get("/comprobante_adm", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  if (req.session.loggedin && req.session.role === "admin") {
+    try {
+      const comprobanteData = await getComprobante();
+      res.render("comprobante_adm", {
+        dashboard: true,
+        name: req.session.name,
+        data: { pagos: comprobanteData }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    res.render("index", {
+      dashboard: false,
+      name: "Debe iniciar sesión",
+      alert: true,
+      alertTitle: "Debe iniciar sesión como administrador",
+      alertMessage: "Debe iniciar sesión como administrador",
+      alertIcon: "error",
+      showConfirmButton: false,
+      timer: 1000,
+      ruta: "index",
+      role
+    });
+  }
+});
+
 
 router.get("/reg_admin", (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";

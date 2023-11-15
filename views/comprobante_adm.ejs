@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorsSolution</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>    
+    <%- include('partials/tablasqlcss') %>
+</head>
+<body>
+  <div class="hero_area">
+    <%- include('partials/navigation_bar_admin', { currentPage: "comprobante_adm" }) %>
+    <% if (typeof data !== 'undefined' && typeof data.pagos !== 'undefined') { %>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>ID Pago</th>
+                <th>Estado</th>
+                <th>Email PayPal</th>
+                <th>Nombre Comprador</th>
+                <th>Código País</th>
+                <th>Nombre Envío</th>
+                <th>Dirección Envío</th>
+                <th>Monto Compra</th>
+                <th>Monto Bruto</th>
+                <th>Comisión PayPal</th>
+                <th>Monto Neto</th>
+            </tr>
+            <% data.pagos.forEach(function(row) { %>
+                <tr>
+                    <td><%= row.id %></td>
+                    <td><%= row.id_pago %></td>
+                    <td><%= row.estado %></td>
+                    <td><%= row.email_paypal %></td>
+                    <td><%= row.nombre_comprador %></td>
+                    <td><%= row.codigo_pais %></td>
+                    <td><%= row.nombre_envio %></td>
+                    <td><%= row.direccion_envio %></td>
+                    <td><%= row.monto_compra %></td>
+                    <td><%= row.monto_bruto %></td>
+                    <td><%= row.comision_paypal %></td>
+                    <td><%= row.monto_neto %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } %>
+    
+    
+</div>
+</body>
+
+<%- include('partials/sweetalert') %>
+<%- include('partials/scripts') %>
+</html>

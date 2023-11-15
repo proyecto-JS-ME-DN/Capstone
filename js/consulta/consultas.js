@@ -28,6 +28,15 @@ async function getLoginData() {
     }
   }
 
+  async function getComprobante() {
+    try {
+        const result = await pool.query('SELECT * FROM public.comprobante');
+        return result.rows;
+    } catch (err) {
+        console.error(err);
+    }
+  }
+
   async function buscar(req, res) {
     const id = req.query.id;
     try {
@@ -43,5 +52,5 @@ async function getLoginData() {
     }
 }
 
-  module.exports = { getLoginData, getContactoData, getAgendasExtData, buscar };
+  module.exports = { getLoginData, getContactoData, getAgendasExtData, getComprobante, buscar };
 
