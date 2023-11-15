@@ -393,8 +393,8 @@ router.get('/execute-payment', (req, res) => {
                     doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 380, 700);
 
                     // Finalizar el PDF y guardarlo en el sistema de archivos
-                    doc.pipe(res);
                     doc.end();
+                    doc.pipe(fs.createWriteStream(`./comprobantes/comprobante_${id_pago}.pdf`));
 
                     res.render("paymentResult", {
                       alert: true,
