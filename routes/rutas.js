@@ -372,7 +372,7 @@ router.get('/execute-payment', (req, res) => {
                     doc.text(`Nombre del Comprador: ${nombre_comprador}`, 70, 230);
                     doc.text(`Código del País: ${codigo_pais}`, 70, 250);
                     doc.text(`Nombre de Envío: ${nombre_envio}`, 70, 270);
-                    doc.text(`Dirección de Envío: ${direccion_envio}`, 70, 280);
+                    doc.text(`Dirección de Envío: ${direccion_envio}`, 70, 290);
                     doc.text(`Monto de la Compra: ${monto_compra}`, 70, 310);
                     doc.text(`Monto Bruto: ${monto_bruto}`, 70, 330);
                     doc.text(`Comisión de PayPal: ${comision_paypal}`, 70, 350);
@@ -393,8 +393,8 @@ router.get('/execute-payment', (req, res) => {
                     doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 380, 700);
 
                     // Finalizar el PDF y guardarlo en el sistema de archivos
+                    doc.pipe(res);
                     doc.end();
-                    doc.pipe(fs.createWriteStream(`./comprobantes/comprobante_${id_pago}.pdf`));
 
                     res.render("paymentResult", {
                       alert: true,
