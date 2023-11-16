@@ -345,7 +345,7 @@ router.get('/generate-pdf/:id_pago', async (req, res) => {
         doc.fontSize(14).text('Gracias por comprar en MotorsSolution', 70, 600, { align: 'center' });
 
         // Agregar la fecha y hora en la zona inferior derecha
-        doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 380, 700);
+        doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 370, 690);
 
         // Finalizar el PDF y guardarlo en el sistema de archivos
         doc.end();
