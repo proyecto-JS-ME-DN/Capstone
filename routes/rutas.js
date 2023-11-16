@@ -234,30 +234,6 @@ router.get("/", (req, res) => {
   res.render("index", { role } );
 });
 
-/*
-//Paypal
-router.get("/producto", (req, res) => {
-  // Ejecuta tu script de Python
-  const python = spawn("python", ["./python/paypal.py"]);
-
-  // Captura la salida del script
-  let paypalUrl = '';
-  python.stdout.on("data", (data) => {
-    // La salida del script es el enlace de PayPal
-    paypalUrl += data.toString();
-  });
-
-  python.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
-  });
-
-  python.on("close", (code) => {
-    console.log(`PayPal URL: ${paypalUrl}`);
-    res.render("producto", { paypalUrl: paypalUrl });
-  });  
-});
-*/
-
 // Compra Paypal
 const getPaypalUrl = require('../js/session/paypal');
 
@@ -270,7 +246,7 @@ router.get("/producto", async (req, res) => {
 
 //Comprobante y Guardar en BD
 const executePayment = require('../js/session/executePayment');
-/*
+
 router.get('/execute-payment', (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
   const token = req.query.token;
@@ -315,105 +291,71 @@ router.get('/execute-payment', (req, res) => {
       }
   });
 });
-*/
 
-//Paypal con Comprobante PDF
-
+//Comprobante PayPal
 const PDFDocument = require('pdfkit');
-const fs = require('fs');
 
-router.get('/execute-payment', (req, res) => {
-  const role = req.session.loggedin ? req.session.role : "n_reg";
-  const token = req.query.token;
-  executePayment(token, (err, paymentData) => {
-      if (err) {
-          // manejar error
-      } else {
-          if (paymentData.payment_source && paymentData.payment_source.paypal) {
-              const id_pago = paymentData.id;
-              const estado = paymentData.status;
-              const email_paypal = paymentData.payment_source.paypal.email_address;
-              const nombre_comprador = paymentData.payment_source.paypal.name.given_name + ' ' + paymentData.payment_source.paypal.name.surname;
-              const codigo_pais = paymentData.payment_source.paypal.address.country_code;
-              const nombre_envio = paymentData.purchase_units[0].shipping.name.full_name;
-              const direccion_envio = paymentData.purchase_units[0].shipping.address.address_line_1 + ', ' + paymentData.purchase_units[0].shipping.address.admin_area_2 + ', ' + paymentData.purchase_units[0].shipping.address.admin_area_1 + ', ' + paymentData.purchase_units[0].shipping.address.postal_code + ', ' + paymentData.purchase_units[0].shipping.address.country_code;
-              const monto_compra = paymentData.purchase_units[0].payments.captures[0].amount.value;
-              const monto_bruto = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.gross_amount.value;
-              const comision_paypal = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.value;
-              const monto_neto = paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.value;
+router.get('/generate-pdf/:id_pago', async (req, res) => {
+    const id_pago = req.params.id_pago;
 
-              pool.query(
-                'INSERT INTO public.comprobante("id_pago", "estado", "email_paypal", "nombre_comprador", "codigo_pais", "nombre_envio", "direccion_envio", "monto_compra", "monto_bruto", "comision_paypal", "monto_neto") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', 
-                [id_pago, estado, email_paypal, nombre_comprador, codigo_pais, nombre_envio, direccion_envio, monto_compra, monto_bruto, comision_paypal, monto_neto], 
-                async (error, results) => {
-                  if (error) {
-                    console.log(error);
-                  } else {
+    // Consulta a la base de datos para obtener los datos del pago
+    const result = await pool.query('SELECT * FROM public.comprobante WHERE id_pago = $1', [id_pago]);
 
-                    // Crear un nuevo documento PDF
-                    const doc = new PDFDocument();
+    if (result.rows.length > 0) {
+        const paymentData = result.rows[0];
 
-                    // Agregar las imágenes
-                    doc.image('./public/Img/paypal_logo.png', 450, 20, { width: 100 });
+        // Crear un nuevo documento PDF
+        const doc = new PDFDocument();
 
-                    // Agregar un título grande
-                    doc.fontSize(26).text('MotorsSolution', { align: 'center' });
+        // Agregar las imágenes
+        doc.image('./public/Img/paypal_logo.png', 450, 20, { width: 100 });
 
-                    // Agregar un título al comprobante
-                    doc.fontSize(18).text('Comprobante de Compra', { align: 'center' });
+        // Agregar un título grande
+        doc.fontSize(26).text('MotorsSolution', { align: 'center' });
 
-                    // Agregar una línea debajo del título
-                    doc.moveTo(50, 140).lineTo(550, 140).stroke();
+        // Agregar un título al comprobante
+        doc.fontSize(18).text('Comprobante de Compra', { align: 'center' });
 
-                    // Escribir los detalles de la compra en el PDF
-                    doc.fontSize(12).text(`ID de Pago: ${id_pago}`, 70, 170);
-                    doc.text(`Estado: ${estado}`, 70, 190);
-                    doc.text(`Email de PayPal: ${email_paypal}`, 70, 210);
-                    doc.text(`Nombre del Comprador: ${nombre_comprador}`, 70, 230);
-                    doc.text(`Código del País: ${codigo_pais}`, 70, 250);
-                    doc.text(`Nombre de Envío: ${nombre_envio}`, 70, 270);
-                    doc.text(`Dirección de Envío: ${direccion_envio}`, 70, 290);
-                    doc.text(`Monto de la Compra: ${monto_compra}`, 70, 310);
-                    doc.text(`Monto Bruto: ${monto_bruto}`, 70, 330);
-                    doc.text(`Comisión de PayPal: ${comision_paypal}`, 70, 350);
-                    doc.text(`Monto Neto: ${monto_neto}`, 70, 370);
+        // Agregar una línea debajo del título
+        doc.moveTo(50, 140).lineTo(550, 140).stroke();
 
-                    // Agregar una línea debajo de los detalles de la compra
-                    doc.moveTo(50, 400).lineTo(550, 400).stroke();
+        // Escribir los detalles de la compra en el PDF
+        doc.fontSize(12).text(`ID de Pago: ${paymentData.id_pago}`, 70, 170);
+        doc.text(`Estado: ${paymentData.estado}`, 70, 190);
+        doc.text(`Email de PayPal: ${paymentData.email_paypal}`, 70, 210);
+        doc.text(`Nombre del Comprador: ${paymentData.nombre_comprador}`, 70, 230);
+        doc.text(`Código del País: ${paymentData.codigo_pais}`, 70, 250);
+        doc.text(`Nombre de Envío: ${paymentData.nombre_envio}`, 70, 270);
+        doc.text(`Dirección de Envío: ${paymentData.direccion_envio}`, 70, 290);
+        doc.text(`Monto de la Compra: ${paymentData.monto_compra}`, 70, 310);
+        doc.text(`Monto Bruto: ${paymentData.monto_bruto}`, 70, 330);
+        doc.text(`Comisión de PayPal: ${paymentData.comision_paypal}`, 70, 350);
+        doc.text(`Monto Neto: ${paymentData.monto_neto}`, 70, 370);
 
-                    // Agregar la imagen del logo arriba de los agradecimientos
-                    const imgWidth = 100;
-                    const xPosition = (doc.page.width / 2) - (imgWidth / 2);
-                    doc.image('./public/Img/Logo-removebg-preview.png', xPosition, 450, { width: imgWidth });
 
-                    // Agregar un agradecimiento al final de la compra
-                    doc.fontSize(14).text('Gracias por comprar en MotorsSolution', 70, 600, { align: 'center' });
+        // Agregar una línea debajo de los detalles de la compra
+        doc.moveTo(50, 400).lineTo(550, 400).stroke();
 
-                    // Agregar la fecha y hora en la zona inferior derecha
-                    doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 380, 700);
+        // Agregar la imagen del logo arriba de los agradecimientos
+        const imgWidth = 100;
+        const xPosition = (doc.page.width / 2) - (imgWidth / 2);
+        doc.image('./public/Img/Logo-removebg-preview.png', xPosition, 450, { width: imgWidth });
 
-                    // Finalizar el PDF y guardarlo en el sistema de archivos
-                    doc.end();
-                    doc.pipe(fs.createWriteStream(`./comprobantes/comprobante_${id_pago}.pdf`));
+        // Agregar un agradecimiento al final de la compra
+        doc.fontSize(14).text('Gracias por comprar en MotorsSolution', 70, 600, { align: 'center' });
 
-                    res.render("paymentResult", {
-                      alert: true,
-                      alertTitle: "Compra Realizada",
-                      alertMessage: "Compra Realizada",
-                      alertIcon: "success",
-                      showConfirmButton: false,
-                      timer: 1500,
-                      ruta: "",
-                      paymentData: paymentData, role
-                      });
-                    }
-                  }
-              );
-          }
-      }
-  });
+        // Agregar la fecha y hora en la zona inferior derecha
+        doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 380, 700);
+
+        // Finalizar el PDF y guardarlo en el sistema de archivos
+        doc.end();
+
+        // Enviar el PDF como respuesta
+        res.contentType('application/pdf');
+        doc.pipe(res);
+    } else {
+        res.status(404).send('No se encontró el pago');
+    }
 });
-
-
 
 module.exports = router;

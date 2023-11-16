@@ -19,7 +19,6 @@
                 <th>Estado</th>
                 <th>Email PayPal</th>
                 <th>Nombre Comprador</th>
-                <th>Código País</th>
                 <th>Nombre Envío</th>
                 <th>Dirección Envío</th>
                 <th>Monto Compra</th>
@@ -34,13 +33,13 @@
                     <td><%= row.estado %></td>
                     <td><%= row.email_paypal %></td>
                     <td><%= row.nombre_comprador %></td>
-                    <td><%= row.codigo_pais %></td>
                     <td><%= row.nombre_envio %></td>
                     <td><%= row.direccion_envio %></td>
                     <td><%= row.monto_compra %></td>
                     <td><%= row.monto_bruto %></td>
                     <td><%= row.comision_paypal %></td>
                     <td><%= row.monto_neto %></td>
+                    <td><a href="/generate-pdf/<%= row.id_pago %>"><i class="gg-software-download"></i></a></td>
                 </tr>
             <% }); %>
         </table>
