@@ -311,7 +311,7 @@ router.get('/generate-pdf/:id_pago', async (req, res) => {
         doc.image('./public/Img/paypal_logo.png', 450, 20, { width: 100 });
 
         // Agregar un título grande
-        doc.fontSize(26).text('MotorsSolution', { align: 'center' });
+        doc.fontSize(30).text('MotorsSolution', { align: 'center' });
 
         // Agregar un título al comprobante
         doc.fontSize(18).text('Comprobante de Compra', { align: 'center' });
@@ -342,10 +342,10 @@ router.get('/generate-pdf/:id_pago', async (req, res) => {
         doc.image('./public/Img/Logo-removebg-preview.png', xPosition, 450, { width: imgWidth });
 
         // Agregar un agradecimiento al final de la compra
-        doc.fontSize(14).text('Gracias por comprar en MotorsSolution', 70, 600, { align: 'center' });
+        doc.fontSize(14).text('Gracias por comprar en MotorsSolution', 70, 580, { align: 'center' });
 
         // Agregar la fecha y hora en la zona inferior derecha
-        doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 370, 690);
+        doc.fontSize(10).text(`Fecha / hora: ${new Date().toLocaleString()}`, 370, 660);
 
         // Finalizar el PDF y guardarlo en el sistema de archivos
         doc.end();
