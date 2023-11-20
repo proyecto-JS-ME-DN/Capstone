@@ -21,7 +21,7 @@ async function getLoginData() {
   
   async function getAgendasExtData() {
     try {
-        const result = await pool.query('SELECT * FROM public.agenda_externo');
+        const result = await pool.query('SELECT * FROM public.agenda_externo WHERE estado IS NULL OR estado <> $1 ORDER BY fecha, hora, id', ['Completado']);
         return result.rows;
     } catch (err) {
         console.error(err);

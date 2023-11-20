@@ -48,11 +48,6 @@ router.get("/contacto", (req, res) => {
   res.render("contacto", { role } );
 });
 
-router.get("/servicio", (req, res) => {
-  const role = req.session.loggedin ? req.session.role : "n_reg";
-  res.render("servicio", { role } );
-});
-
 router.get("/login", (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
   res.render("login", { role } );
@@ -155,6 +150,62 @@ router.get("/lista_agendas", async (req, res) => {
   }
 });
 
+router.get("/detalle_agenda/:id", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  const id = req.params.id;
+  if (req.session.loggedin && req.session.role === "admin") {
+    try {
+      // Obtener detalles de la agenda específica según el ID
+      const result = await pool.query('SELECT * FROM public.agenda_externo WHERE id = $1', [id]);
+      const agendaDetails = result.rows[0]; // Suponiendo que solo quieres el primer resultado
+  
+      if (req.session.loggedin && req.session.role === "admin") {
+        res.render("detalle_agenda", {
+          lista_agendas: true,
+          name: req.session.name,
+          agendaext: [agendaDetails], // Pasa los detalles de la agenda como un arreglo
+          agendaId: id
+        });
+      } else {
+        // Resto del código de renderización para usuarios no administradores
+      }
+    } catch (error) {
+      console.error(error);
+      // Manejar el error según tus necesidades
+      res.status(500).send('Error interno del servidor');
+    }
+  } else {
+    res.render("index", {
+      lista_agendas: false,
+      name: "Debe iniciar sesión",
+      alert: true,
+      alertTitle: "Debe iniciar sesión como administrador",
+      alertMessage: "Debe iniciar sesión como administrador",
+      alertIcon: "error",
+      showConfirmButton: false,
+      timer: 1000,
+      ruta: "index",
+      role
+    });
+  }
+});
+
+router.post("/actualizar_estado_agenda", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  try {
+      const { agendaId, observaciones } = req.body;
+      const nuevoEstado = "Completado";
+
+      await pool.query('UPDATE public.agenda_externo SET estado = $1 WHERE id = $2', [nuevoEstado, agendaId]);
+      await pool.query('INSERT INTO observaciones_agenda (agenda_id, observaciones) VALUES ($1, $2)', [agendaId, observaciones]);
+
+      res.redirect("/lista_agendas");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send("Error interno del servidor");
+  }
+});
+
 router.get("/comprobante_adm", async (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
   if (req.session.loggedin && req.session.role === "admin") {
@@ -243,6 +294,12 @@ router.get("/producto", async (req, res) => {
   console.log(`PayPal URL: ${paypalUrl}`);
   res.render("producto", { paypalUrl: paypalUrl, role });
 });
+
+router.get("/servicio", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  res.render("servicio", { role });
+});
+
 
 //Comprobante y Guardar en BD
 const executePayment = require('../js/session/executePayment');

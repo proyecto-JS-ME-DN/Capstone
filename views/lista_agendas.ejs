@@ -11,30 +11,33 @@
 <body>
   <div class="hero_area">
     <%- include('partials/navigation_bar_admin', { currentPage: "lista_agendas" }) %>
-    <table>
-      <tr>
+    <table id="agendaTabla">
+      <thead>
         <th>ID</th>
         <th>Cliente</th>
         <th>Correo Cliente</th>
-        <th>Patente Vehiculo</th>
         <th>Marca</th>
         <th>Tipo de Agenda</th>
         <th>Fecha</th>
         <th>Hora</th>
-      </tr>
-      <% agendaext.forEach(row => { %>
-        <tr>
+        <th>Estado</th>
+      </thead>
+      <tbody>
+        <% agendaext.forEach(row => { %>
+        <tr onclick="seleccionarFila(this);">
           <td><%= row.id %></td>
           <td><%= row.nombre %></td>
           <td><%= row.correo %></td>
-          <td><%= row.patente %></td>
           <td><%= row.marca %></td>
           <td><%= row.tipo %></td>
-          <td><%= row.fecha %></td>
+          <td><%= new Date(row.fecha).toISOString().split('T')[0] %></td>
           <td><%= row.hora %></td>
+          <td><%= row.estado %></td>
         </tr>
       <% }); %>
+      </tbody>
     </table>
+    <button class="btn btn-detalle" id="detalleBtn" onclick="mostrarDetalle();" disabled>Ver Detalles</button>
   </div>
 </body>
 

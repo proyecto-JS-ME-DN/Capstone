@@ -16,14 +16,14 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Agenda De Servicios</h2>
-                    <form method="POST" action="/servicio">
+                    <form method="POST" action="/agendar_servicio">
 
                         <div class="input-group">
                             <input class="input--style-2" type="text" name="nombre" placeholder="Nombre Completo" required>
                         </div>
 
                         <div class="input-group">
-                            <input class="input--style-2" type="text" name="correo" required placeholder="Correo Electronico" required>
+                            <input class="input--style-2" type="text" name="correo" placeholder="Correo Electronico" required>
                         </div>
                         
                         <div class="select-group">
@@ -60,8 +60,9 @@
                         <div class="descripcion">
                             <textarea class="input--text" name="descripcion" id="descripcion" placeholder="Describe tu problema de manera breve"></textarea>
                         </div>
-
-                        <input  type="submit" class="btn btn-success margen-arriba" value="Siguiente" >
+                        <a>
+                            <input type="submit" class="btn btn-success margen-arriba" value="Siguiente" >
+                        </a>
                     </form>
                 </div>
             </div>

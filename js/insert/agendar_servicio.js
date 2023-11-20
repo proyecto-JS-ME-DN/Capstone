@@ -5,10 +5,11 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../../database/db');
 
-router.post("/servicio", async (req, res) => {
-  const {nombre,correo,patente,marca,tipo,fecha,hora,descripcion} = req.body;
+router.post("/agendar_servicio", async (req, res) => {
+  const {nombre,correo,patente,marca,modelo,tipo,fecha,hora,descripcion} = req.body;
+  const estado = "Pendiente";
   pool.query(
-    "INSERT INTO public.agenda_externo(nombre,correo,patente,marca,tipo,fecha,hora,descripcion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [nombre,correo,patente,marca,tipo,fecha,hora,descripcion], async (error, results) => {
+    "INSERT INTO public.agenda_externo(nombre,correo,patente,marca,modelo,tipo,fecha,hora,descripcion,estado) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", [nombre,correo,patente,marca,modelo,tipo,fecha,hora,descripcion,estado], async (error, results) => {
       if (error) {
         console.log(error);
       } else {
