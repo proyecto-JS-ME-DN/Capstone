@@ -28,6 +28,15 @@ async function getLoginData() {
     }
   }
 
+  async function getAgendasExtDataFin() {
+    try {
+        const result = await pool.query('SELECT * FROM public.agenda_externo WHERE  estado = $1 ORDER BY fecha, hora, id', ['Completado']);
+        return result.rows;
+    } catch (err) {
+        console.error(err);
+    }
+  }
+
   async function getComprobante() {
     try {
         const result = await pool.query('SELECT * FROM public.comprobante');
@@ -52,5 +61,5 @@ async function getLoginData() {
     }
 }
 
-  module.exports = { getLoginData, getContactoData, getAgendasExtData, getComprobante, buscar };
+  module.exports = { getLoginData, getContactoData, getAgendasExtData, getAgendasExtDataFin, getComprobante, buscar };
 

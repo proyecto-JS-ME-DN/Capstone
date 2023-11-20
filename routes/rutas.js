@@ -10,6 +10,7 @@ const {
   getLoginData,
   getContactoData,
   getAgendasExtData,
+  getAgendasExtDataFin,
   getComprobante,
   buscar,
 } = require("../js/consulta/consultas");
@@ -20,7 +21,7 @@ const eliminar = require("../js/delete/delete");
 const contactoRoute = require('../js/insert/contacto');
 const reg_adminRoute = require('../js/insert/reg_admin');
 const registerRoute = require('../js/insert/register');
-const servicioRoute = require('../js/insert/agendar_servicio');
+const agendarservicioRoute = require('../js/insert/agendar_servicio');
 const suscripcionRoute = require('../js/insert/suscripcion');
 
 router.use(
@@ -76,7 +77,7 @@ router.get("/eliminar/:id", eliminar);
 router.post('/contacto', contactoRoute);
 router.post('/reg_admin', reg_adminRoute);
 router.post('/register', registerRoute);
-router.post('/agendar_servicio', servicioRoute);
+router.post('/agendar_servicio', agendarservicioRoute);
 router.post('/suscripcion', suscripcionRoute);
 
 router.get("/dashboard", (req, res) => {
@@ -132,7 +133,34 @@ router.get("/lista_agendas", async (req, res) => {
     res.render("lista_agendas" , {
       lista_agendas: true,
       name: req.session.name,
-      agendaext: dataext
+      agendaext: dataext,
+      finalized: false
+    });
+  } else {
+    res.render("index", {
+      lista_agendas: false,
+      name: "Debe iniciar sesión",
+      alert: true,
+      alertTitle: "Debe iniciar sesión como administrador",
+      alertMessage: "Debe iniciar sesión como administrador",
+      alertIcon: "error",
+      showConfirmButton: false,
+      timer: 1000,
+      ruta: "index",
+      role
+    });
+  }
+});
+
+router.get("/lista_agendas_fin", async (req, res) => {
+  const dataext = await getAgendasExtDataFin();
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  if (req.session.loggedin && req.session.role === "admin") {
+    res.render("lista_agendas_fin" , {
+      lista_agendas: true,
+      name: req.session.name,
+      agendaext: dataext,
+      finalized: true
     });
   } else {
     res.render("index", {
@@ -157,13 +185,56 @@ router.get("/detalle_agenda/:id", async (req, res) => {
     try {
       // Obtener detalles de la agenda específica según el ID
       const result = await pool.query('SELECT * FROM public.agenda_externo WHERE id = $1', [id]);
-      const agendaDetails = result.rows[0]; // Suponiendo que solo quieres el primer resultado
+      const agendaDetails = result.rows[0];
   
       if (req.session.loggedin && req.session.role === "admin") {
         res.render("detalle_agenda", {
           lista_agendas: true,
           name: req.session.name,
-          agendaext: [agendaDetails], // Pasa los detalles de la agenda como un arreglo
+          agendaext: [agendaDetails],
+          agendaId: id
+        });
+      } else {
+        // Resto del código de renderización para usuarios no administradores
+      }
+    } catch (error) {
+      console.error(error);
+      // Manejar el error según tus necesidades
+      res.status(500).send('Error interno del servidor');
+    }
+  } else {
+    res.render("index", {
+      lista_agendas: false,
+      name: "Debe iniciar sesión",
+      alert: true,
+      alertTitle: "Debe iniciar sesión como administrador",
+      alertMessage: "Debe iniciar sesión como administrador",
+      alertIcon: "error",
+      showConfirmButton: false,
+      timer: 1000,
+      ruta: "index",
+      role
+    });
+  }
+});
+
+router.get("/detalle_agenda_fin/:id", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  const id = req.params.id;
+  if (req.session.loggedin && req.session.role === "admin") {
+    try {
+      // Obtener detalles de la agenda específica según el ID
+      const result_agenda = await pool.query('SELECT * FROM public.agenda_externo WHERE id = $1', [id]);
+      const result_observaciones = await pool.query('SELECT * FROM public.observaciones_agenda WHERE agenda_id = $1', [id]);
+      const agendaDetails = result_agenda.rows[0]; // Suponiendo que solo quieres el primer resultado
+      const observacionesDetails = result_observaciones.rows;
+
+      if (req.session.loggedin && req.session.role === "admin") {
+        res.render("detalle_agenda_fin", {
+          lista_agendas: true,
+          name: req.session.name,
+          agendaext: [agendaDetails],
+          observaciones: observacionesDetails, 
           agendaId: id
         });
       } else {

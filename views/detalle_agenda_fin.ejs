@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorsSolution</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>    
+    <%- include('partials/tablasqlcss') %>
+</head>
+<body>
+    <div class="hero_area">
+        <%- include('partials/navigation_bar_admin', { currentPage: "lista_agendas" }) %>
+        <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+            <div class="wrapper wrapper--w960">
+                <div class="card card-2">
+                    <div class="card-heading"></div>
+                    <div class="card-body">
+                        <h2 class="title">Detalles de la Agenda</h2>
+                        <form method="POST" action="#">
+                            <input type="hidden" name="agendaId" id="agendaId" value="<%= agendaId %>">
+                            <% agendaext.forEach(row => { %>
+                            <div class="input-group">
+                                <label for="nombre">Nombre Completo:</label>
+                                <input class="input--style-2" type="text" name="nombre" id="nombre" value="<%= row.nombre %>" readonly>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="correo">Correo Electrónico:</label>
+                                <input class="input--style-2" type="text" name="correo" id="correo" value="<%= row.correo %>" readonly>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="marca">Marca del Vehículo:</label>
+                                <input class="input--style-2" type="text" name="marca" id="marca_det" value="<%= row.marca %>" readonly>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="modelo">Modelo del Vehículo:</label>
+                                <input class="input--style-2" type="text" name="modelo" id="modelo_det" value="<%= row.modelo %>" readonly>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="patente">Patente del Vehículo:</label>
+                                <input class="input--style-2" type="text" name="patente" id="patente" value="<%= row.patente %>" readonly>
+                            </div>
+        
+                            <div class="select-group">
+                                <label for="tipo">Tipo de Servicio:</label>
+                                <input class="input--style-2" type="text" name="tipo" id="tipo" value="<%= row.tipo %>" readonly>
+        
+                                <label for="fecha">Fecha del Servicio:</label>
+                                <input class="desplegar" type="text" name="fecha" id="fecha" value="<%= new Date(row.fecha).toISOString().split('T')[0] %>" readonly>
+        
+                                <label for="hora">Hora del Servicio:</label>
+                                <input class="desplegar" type="text" name="hora" id="hora" value="<%= row.hora %>" readonly>
+                            </div>
+        
+                            <div class="descripcion">
+                                <label for="descripcion">Descripción Entregada:</label>
+                                <textarea class="input--text" name="descripcion" id="descripcion" readonly><%= row.descripcion %></textarea>
+                            </div>
+                            <% }); %>
+                            <hr class="separator-line">
+                            <% observaciones.forEach(row_ob => { %>
+                            <div class="input-group">
+                                <label for="observaciones">Observaciones de la Agenda:</label>
+                                <textarea class="input--text" name="observaciones" id="observationText" readonly><%= row_ob.observaciones %></textarea>
+                            </div>
+                            <% }); %>
+                            <div class="button-group">
+                                <a href="/lista_agendas_fin" class="btn btn-listado">Volver al Listado</a>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('partials/sweetalert') %>
+<%- include('partials/scripts') %>
+</html>

@@ -217,17 +217,31 @@
     }
   }
   
-    function mostrarDetalle() {
-      // Obtener la fila seleccionada
-      var filaSeleccionada = document.querySelector(".filaSeleccionada");
-  
-      if (filaSeleccionada) {
-        // Obtener el ID de la fila seleccionada
-        var id = filaSeleccionada.getElementsByTagName("td")[0].innerHTML;
-        console.log(id)
-  
-        // Redirigir a la página de detalle con el ID como parámetro
-        window.location.href = "/detalle_agenda/" + id;
-      }
+  function mostrarDetalle() {
+    // Obtener la fila seleccionada
+    var filaSeleccionada = document.querySelector(".filaSeleccionada");
+
+    if (filaSeleccionada) {
+      // Obtener el ID de la fila seleccionada
+      var id = filaSeleccionada.getElementsByTagName("td")[0].innerHTML;
+      console.log(id)
+
+      // Redirigir a la página de detalle con el ID como parámetro
+      window.location.href = "/detalle_agenda/" + id;
     }
+  }
+
+  function mostrarDetalleFin() {
+    // Obtener la fila seleccionada
+    var filaSeleccionada = document.querySelector(".filaSeleccionada");
+
+    if (filaSeleccionada) {
+      // Obtener el ID de la fila seleccionada
+      var id = filaSeleccionada.getElementsByTagName("td")[0].innerHTML;
+      console.log(id)
+
+      // Redirigir a la página de detalle con el ID como parámetro
+      window.location.href = "/detalle_agenda_fin/" + id;
+    }
+  }
   </script>
