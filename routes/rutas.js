@@ -20,7 +20,7 @@ const eliminar = require("../js/delete/delete");
 const contactoRoute = require('../js/insert/contacto');
 const reg_adminRoute = require('../js/insert/reg_admin');
 const registerRoute = require('../js/insert/register');
-const servicioRoute = require('../js/insert/servicio');
+const servicioRoute = require('../js/insert/agendar_servicio');
 const suscripcionRoute = require('../js/insert/suscripcion');
 
 router.use(
@@ -76,7 +76,7 @@ router.get("/eliminar/:id", eliminar);
 router.post('/contacto', contactoRoute);
 router.post('/reg_admin', reg_adminRoute);
 router.post('/register', registerRoute);
-router.post('/servicio', servicioRoute);
+router.post('/agendar_servicio', servicioRoute);
 router.post('/suscripcion', suscripcionRoute);
 
 router.get("/dashboard", (req, res) => {

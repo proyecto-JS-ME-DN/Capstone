@@ -42,7 +42,7 @@ const rutas = require('./routes/rutas');
 const registerRouter = require('./js/insert/register');
 const contactoRouter = require('./js/insert/contacto');
 const suscripcionRouter = require('./js/insert/suscripcion');
-const servicioRouter = require('./js/insert/servicio');
+const servicioRouter = require('./js/insert/agendar_servicio');
 const regadminRouter = require('./js/insert/reg_admin');
 
 
@@ -51,7 +51,7 @@ app.use('/', rutas);
 app.use('/register', registerRouter);
 app.use('/contacto', contactoRouter);
 app.use('/suscripcion', suscripcionRouter);
-app.use('/servicio', servicioRouter);
+app.use('/agendar_servicio', servicioRouter);
 app.use('/reg_admin', regadminRouter);
 
 // Autenticacion paginas
