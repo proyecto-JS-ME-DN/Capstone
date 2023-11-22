@@ -153,8 +153,8 @@
     fechaInput.min = fechaActual;
 
     // Limitar las horas de atención entre las 8:30 AM y las 22:00 PM
-    horaInput.min = '08:30';
-    horaInput.max = '22:00';
+    horaInput.min = '09:00';
+    horaInput.max = '19:00';
 
     // Agregar un evento de cambio para verificar las fechas seleccionadas
     fechaInput.addEventListener('change', function () {
@@ -167,7 +167,7 @@
       } else {
         // Si la fecha seleccionada es posterior a hoy, permitir cualquier hora
         horaInput.disabled = false; // Habilitar el campo de hora
-        horaInput.value = '08:30'; // Establecer la hora a la apertura
+        horaInput.value = '09:00'; // Establecer la hora a la apertura
       }
     });
 
@@ -177,16 +177,14 @@
       opcionesHoraDatalist.innerHTML = '';
 
       // Filtrar las opciones de hora según la fecha seleccionada y las horas de atención
-      var horaApertura = 8; // Hora de apertura
-      var horaCierre = 22; // Hora de cierre
-      var intervalo = 30; // Intervalo de minutos
+      var horaApertura = 9; // Hora de apertura
+      var horaCierre = 19; // Hora de cierre
+      var intervalo = 60; // Intervalo de minutos
 
       for (var horas = horaApertura; horas < horaCierre; horas++) {
-        for (var minutos = 0; minutos < 60; minutos += intervalo) {
           var opcion = document.createElement('option');
-          opcion.value = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
+          opcion.value = horas + ':00';
           opcionesHoraDatalist.appendChild(opcion);
-        }
       }
     });
   });
