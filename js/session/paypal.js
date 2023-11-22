@@ -1,10 +1,11 @@
 // paypal.js
 const axios = require('axios');
+const dotenv = require("dotenv");
+dotenv.config({ path: "env/.env" });
 
-// Tus credenciales de PayPal
-const CLIENT = 'Ac49PuTgBmuyf-VlmLq4Axf5BX3F5O3uO81kbsO_GTBrErCfrMeE9DwAD37LapgPeV6R2cn3ik7sjvkP';
-const SECRET = 'EFbC49mwdaABS-iIl59jxczdL1lUJJZKe2WzjvOJXLqPTZH9judvhZfjRVU_pkm9R5jGTgrQVRPl8nrm';
-const PAYPAL_API = 'https://api-m.sandbox.paypal.com';
+const CLIENT = process.env.CLIENT;
+const SECRET = process.env.SECRET;
+const PAYPAL_API = process.env.PAYPAL_API;
 
 // Los datos de tu orden
 const body = {

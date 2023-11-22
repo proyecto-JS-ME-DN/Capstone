@@ -15,5 +15,3 @@ if __name__ == "__main__":
     processed_contacto_data = process_contacto_data(data['contacto'])
     processed_data = {'login': processed_login_data, 'contacto': processed_contacto_data}
     print(json.dumps(processed_data))
-
-

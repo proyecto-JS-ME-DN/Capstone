@@ -5,6 +5,7 @@ const session = require("express-session");
 const pool = require("../database/db");
 const { spawn } = require("child_process");
 const passport = require('passport');
+const PDFDocument = require('pdfkit');
 
 const {
   getLoginData,
@@ -17,12 +18,12 @@ const {
 const dashboardRoute = require("../js/session/dashboard");
 const formularioAdmRoute = require("../js/session/formularioAdm");
 const eliminar = require("../js/delete/delete");
-
 const contactoRoute = require('../js/insert/contacto');
 const reg_adminRoute = require('../js/insert/reg_admin');
 const registerRoute = require('../js/insert/register');
 const agendarservicioRoute = require('../js/insert/agendar_servicio');
 const suscripcionRoute = require('../js/insert/suscripcion');
+const getPaypalUrl = require('../js/session/paypal');
 
 router.use(
   session({
@@ -69,11 +70,15 @@ router.get("/cancel-payment", (req, res) => {
   res.render("cancel-payment", { role } );
 });
 
+router.get("/servicio", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  res.render("servicio", { role });
+});
+
 router.get("/formulario_adm", formularioAdmRoute);
 router.get("/dashboard", dashboardRoute);
 router.get("/buscar", buscar);
 router.get("/eliminar/:id", eliminar);
-
 router.post('/contacto', contactoRoute);
 router.post('/reg_admin', reg_adminRoute);
 router.post('/register', registerRoute);
@@ -357,7 +362,6 @@ router.get("/", (req, res) => {
 });
 
 // Compra Paypal
-const getPaypalUrl = require('../js/session/paypal');
 
 router.get("/producto", async (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
@@ -366,13 +370,7 @@ router.get("/producto", async (req, res) => {
   res.render("producto", { paypalUrl: paypalUrl, role });
 });
 
-router.get("/servicio", async (req, res) => {
-  const role = req.session.loggedin ? req.session.role : "n_reg";
-  res.render("servicio", { role });
-});
-
-
-//Comprobante y Guardar en BD
+//Guardar comprobante en BD
 const executePayment = require('../js/session/executePayment');
 
 router.get('/execute-payment', (req, res) => {
@@ -421,7 +419,6 @@ router.get('/execute-payment', (req, res) => {
 });
 
 //Comprobante PayPal
-const PDFDocument = require('pdfkit');
 
 router.get('/generate-pdf/:id_pago', async (req, res) => {
     const id_pago = req.params.id_pago;
@@ -493,7 +490,5 @@ router.get("/confirmacion", async (req, res) => {
   const alert = req.session.alert;
   res.render("confirmacion", { data: result.rows[0], role, alert });
 });
-
-
 
 module.exports = router;

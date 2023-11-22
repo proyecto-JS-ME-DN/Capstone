@@ -9,7 +9,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
-
 //invocamos dotenv
 const dotenv = require("dotenv");
 dotenv.config({ path: "env/.env" });
@@ -68,7 +67,6 @@ const PAYPAL_API = process.env.PAYPAL_API;
 const auth = { user: CLIENT, pass: SECRET }
 
 const createPayment = (req, res) => {
-
   const body = {
       intent: 'CAPTURE',
       purchase_units: [{
