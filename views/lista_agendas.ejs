@@ -24,6 +24,7 @@
         <th>Cliente</th>
         <th>Correo Cliente</th>
         <th>Marca</th>
+        <th>Modelo</th>
         <th>Tipo de Agenda</th>
         <th>Fecha</th>
         <th>Hora</th>
@@ -36,6 +37,7 @@
           <td><%= row.nombre %></td>
           <td><%= row.correo %></td>
           <td><%= row.marca %></td>
+          <td><%= row.modelo %></td>
           <td><%= row.tipo %></td>
           <td><%= new Date(row.fecha).toISOString().split('T')[0] %></td>
           <td><%= row.hora %></td>

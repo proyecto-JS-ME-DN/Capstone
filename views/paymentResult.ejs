@@ -13,7 +13,7 @@
         }
         .receipt {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 3% auto;
             padding: 20px;
             border: 1px solid #ddd;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,6 +29,18 @@
         }
         .receipt p:last-child {
             border-bottom: none;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            height: 50px;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -49,6 +61,7 @@
         <p>Comisión de PayPal: <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.value %> <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.currency_code %></p>
         <p>Monto neto: <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.value %> <%= paymentData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.currency_code %></p>
         <% } %>
+        <a href="/" class="button">Volver a inicio</a>
     </div>
     </body>
 <%- include('partials/sub_footer') %>

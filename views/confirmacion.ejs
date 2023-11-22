@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <%- include('partials/bootstrapcss') %>
+    <%- include('partials/estilos') %>
+    <%- include('partials/productocss') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .receipt {
+            max-width: 600px;
+            margin: 3% auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .receipt h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .receipt p {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .receipt p:last-child {
+            border-bottom: none;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            height: 50px;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="sub_page">
+    <%- include('partials/navigation_bar', { currentPage: "confirmacion", activeRole: role }) %>
+
+    <div class="receipt">
+        <h1>Comprobante de Agenda</h1>
+        <p><strong>Nombre:</strong> <%= data.nombre %></p>
+        <p><strong>Correo:</strong> <%= data.correo %></p>
+        <p><strong>Patente:</strong> <%= data.patente %></p>
+        <p><strong>Marca:</strong> <%= data.marca %></p>
+        <p><strong>Modelo:</strong> <%= data.modelo %></p>
+        <p><strong>Tipo:</strong> <%= data.tipo %></p>
+        <p><strong>Fecha:</strong> <%= data.fecha %></p>
+        <p><strong>Hora:</strong> <%= data.hora %></p>
+        <p><strong>Descripción:</strong> <%= data.descripcion %></p>
+        <a href="/" class="button">Volver a inicio</a>
+    </div>
+
+</body>
+<%- include('partials/sub_footer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
+</html>

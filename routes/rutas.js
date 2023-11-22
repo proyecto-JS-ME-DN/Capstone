@@ -486,4 +486,14 @@ router.get('/generate-pdf/:id_pago', async (req, res) => {
     }
 });
 
+// Comprobante Servicio
+router.get("/confirmacion", async (req, res) => {
+  const role = req.session.loggedin ? req.session.role : "n_reg";
+  const result = await pool.query("SELECT * FROM public.agenda_externo WHERE id = $1", [req.session.lastInsertId]);
+  const alert = req.session.alert;
+  res.render("confirmacion", { data: result.rows[0], role, alert });
+});
+
+
+
 module.exports = router;
