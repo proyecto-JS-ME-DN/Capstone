@@ -14,6 +14,7 @@ const {
   getAgendasExtDataFin,
   getComprobante,
   buscar,
+  buscarPorIdPago,
 } = require("../js/consulta/consultas");
 const dashboardRoute = require("../js/session/dashboard");
 const formularioAdmRoute = require("../js/session/formularioAdm");
@@ -84,6 +85,8 @@ router.post('/reg_admin', reg_adminRoute);
 router.post('/register', registerRoute);
 router.post('/agendar_servicio', agendarservicioRoute);
 router.post('/suscripcion', suscripcionRoute);
+
+router.get("/buscarPorIdPago", buscarPorIdPago);
 
 router.get("/dashboard", (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
@@ -286,11 +289,18 @@ router.get("/comprobante_adm", async (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";
   if (req.session.loggedin && req.session.role === "admin") {
     try {
-      const comprobanteData = await getComprobante();
+      let comprobanteData;
+      const id = req.query.id;
+      if (id) {
+        const result = await pool.query('SELECT * FROM public.comprobante WHERE id = $1', [id]);
+        comprobanteData = result.rows;
+      } else {
+        comprobanteData = await getComprobante();
+      }
       res.render("comprobante_adm", {
         dashboard: true,
         name: req.session.name,
-        data: { pagos: comprobanteData }
+        data: { comprobante: comprobanteData }
       });
     } catch (err) {
       console.error(err);
@@ -310,7 +320,6 @@ router.get("/comprobante_adm", async (req, res) => {
     });
   }
 });
-
 
 router.get("/reg_admin", (req, res) => {
   const role = req.session.loggedin ? req.session.role : "n_reg";

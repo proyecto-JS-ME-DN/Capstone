@@ -61,5 +61,20 @@ async function getLoginData() {
     }
 }
 
-  module.exports = { getLoginData, getContactoData, getAgendasExtData, getAgendasExtDataFin, getComprobante, buscar };
+async function buscarPorIdPago(req, res) {
+    const id = req.query.id;
+    try {
+        let result;
+        if (id) {
+            result = await pool.query('SELECT * FROM public.comprobante WHERE id = $1', [id]);
+        } else {
+            result = await pool.query('SELECT * FROM public.comprobante');
+        }
+        res.render('comprobante_adm', { data: { comprobante: result.rows } });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports = { getLoginData, getContactoData, getAgendasExtData, getAgendasExtDataFin, getComprobante, buscar, buscarPorIdPago };
 
