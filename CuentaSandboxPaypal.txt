@@ -1,0 +1,7 @@
+#Credenciales Comprador Paypal Sandbox
+
+USER: sb-kxycl28106610@personal.example.com
+PASSWORD: i?19XI^5
+
+USER 2: sb-iqbww28325530@personal.example.com
+PASSWORD: motorsolution
