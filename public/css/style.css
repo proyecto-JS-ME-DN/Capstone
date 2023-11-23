@@ -1521,3 +1521,17 @@ tr:nth-child(even) {
   color: #fff;
   margin-left: 70px;
 }
+
+@font-face {
+  font-family: 'DigitalClock';
+  src: url('../fonts/digital-7.ttf');
+}
+
+
+#digital-clock {
+  padding-left: 125px;
+  color: #ff0000; /* Color del texto */
+  font-size: 30px; /* Tamaño del texto */
+  font-family: 'DigitalClock', sans-serif; /* Fuente digital */
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000; /* Efecto de brillo */
+}
