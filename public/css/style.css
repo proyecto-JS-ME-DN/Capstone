@@ -1,9 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Black+Ops+One");
 
+@font-face {
+  font-family: 'San Francisco';
+  src: url('../fonts/SFUIDisplay-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'DigitalClock';
+  src: url('../fonts/digital-7.ttf');
+}
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'San Francisco', sans-serif;
   color: #0c0c0c;
   /* background: linear-gradient(to bottom, #868686, #d8d8d8); */
   background: #c5c5c5;
@@ -824,7 +833,7 @@ a:focus {
 
 /* Registro */
 .register-form {
-  font-family: Arial, sans-serif;
+  font-family: San Francisco, sans-serif;
   background-color: #f0f0f0;
   padding: 30px;
   width: 300px;
@@ -899,7 +908,7 @@ a:focus {
  #FONT
    ========================================================================== */
    .font-robo {
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-family:  "San Francisco", "Helvetica Neue", sans-serif;
   }
   
   /* ==========================================================================
@@ -1017,7 +1026,7 @@ a:focus {
   }
   
   body {
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-family:  "San Francisco", "Helvetica Neue", sans-serif;
     font-weight: 400;
     font-size: 14px;
   }
@@ -1108,7 +1117,7 @@ a:focus {
     padding: 0 25px;
     cursor: pointer;
     color: #fff;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-family:  "San Francisco", "Helvetica Neue", sans-serif;
     -webkit-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
@@ -1144,7 +1153,7 @@ a:focus {
   
   .table-condensed td, .table-condensed th {
     font-size: 14px;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-family:  "San Francisco", "Helvetica Neue", sans-serif;
     font-weight: 400;
   }
   
@@ -1521,12 +1530,6 @@ tr:nth-child(even) {
   color: #fff;
   margin-left: 70px;
 }
-
-@font-face {
-  font-family: 'DigitalClock';
-  src: url('../fonts/digital-7.ttf');
-}
-
 
 #digital-clock {
   padding-left: 125px;
