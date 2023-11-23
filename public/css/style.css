@@ -331,8 +331,8 @@ a:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(37, 37, 37, 0.9)), to(rgba(37, 37, 37, 0.7)));
-  background: linear-gradient(to right, rgba(37, 37, 37, 0.9), rgba(37, 37, 37, 0.7));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(37, 37, 37, 0.4)), to(rgba(37, 37, 37, 0.4)));
+  background: linear-gradient(to right, rgba(37, 37, 37, 0.4), rgba(37, 37, 37, 0.4));
 }
 
 .slider_section .row {

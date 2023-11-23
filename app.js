@@ -2,7 +2,15 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
+
+//Sin Uso
+/*
+//modulo hashing para encriptar password ( bcryptjs )
+const bcryptjs = require("bcryptjs");
+//invocar conexion BD
+const pool = require("./database/db");
 const request = require('request');
+*/
 
 //urlencoded para capturar datos del formulario
 app.use(express.urlencoded({ extended: true }));
@@ -20,9 +28,6 @@ app.use("/public", express.static(__dirname + "/public"));
 //Motor de plantillas ejs
 app.set("view engine", "ejs");
 
-//modulo hashing para encriptar password ( bcryptjs )
-const bcryptjs = require("bcryptjs");
-
 //variables de sesion
 const session = require("express-session");
 app.use(
@@ -33,9 +38,6 @@ app.use(
   })
 );
 
-//invocar conexion BD
-const pool = require("./database/db");
-
 // Importa js desde router
 const rutas = require('./routes/rutas');
 const registerRouter = require('./js/insert/register');
@@ -44,6 +46,9 @@ const suscripcionRouter = require('./js/insert/suscripcion');
 const servicioRouter = require('./js/insert/agendar_servicio');
 const regadminRouter = require('./js/insert/reg_admin');
 
+// Autenticacion paginas
+const authAdmin = require('./js/session/auth_admin');
+const auths = require('./js/session/auths');
 
 // Usa el router con app.use(), indicando la ruta base
 app.use('/', rutas);
@@ -53,13 +58,10 @@ app.use('/suscripcion', suscripcionRouter);
 app.use('/agendar_servicio', servicioRouter);
 app.use('/reg_admin', regadminRouter);
 
-// Autenticacion paginas
-const authAdmin = require('./js/session/auth_admin');
-const auths = require('./js/session/auths');
-
 app.post("/auth_admin", authAdmin);
 app.post("/auths", auths);
 
+/*
 //Paypal
 const CLIENT = process.env.CLIENT;
 const SECRET = process.env.SECRET;
@@ -97,6 +99,7 @@ const createPayment = (req, res) => {
 }
 
 app.post('/create-payment', createPayment)
+*/
 
 // Server local
 app.listen(3000, () => {
