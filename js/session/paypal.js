@@ -13,7 +13,7 @@ const body = {
     purchase_units: [{
         amount: {
             currency_code: 'USD',
-            value: '100'
+            value: '10'
         }
     }],
     application_context: {
